@@ -1,11 +1,11 @@
 package Temps;
 
-public class Forme_Temps extends Temps{
+public class Timer extends Temps{
     int heure;
     int minute;
     int seconde;
     
-    public Forme_Temps(int h, int m, int s){
+    public Timer(int h, int m, int s){
         super(h,m,s);
         this.heure = h; 
         this.minute = m; 
