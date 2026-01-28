@@ -1,6 +1,6 @@
 package calculator;
 public class calculator_service {
-    public calculator_service(){
-        super();
+    public static double fuel_rendementEnergy(Fuel fuel, Energy energy){
+        return 1;
     }
 }
