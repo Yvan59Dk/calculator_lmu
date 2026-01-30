@@ -5,6 +5,12 @@ public class Temps {
     int valeur2;
     int valeur3;
 
+    /**
+     * Classe de temps permettant de faire un temps à trois valeur de base 100.
+     * @param v1 : Première valeurs.
+     * @param v2 : Deuxième valeurs.
+     * @param v3 : Troisième valeurs.
+     */
     public Temps(int v1, int v2, int v3){
         this.valeur1 = v1; 
         this.valeur2 = v2; 
@@ -12,10 +18,10 @@ public class Temps {
     }
 
     /**
-     * Met à jour le chrono de référence de la voiture ( peut être son meilleur ou son moyen sur 5 tours )
-     * @param valeur1 : la premiere valeur
-     * @param valeur2 : la deuxiéme valeur
-     * @param valeur3 : la troisiéme valeur
+     * Met à jour le chrono de référence de la voiture ( peut être son meilleur ou son moyen sur 5 tours ).
+     * @param valeur1 : la premiere valeur.
+     * @param valeur2 : la deuxiéme valeur.
+     * @param valeur3 : la troisiéme valeur.
      */
     public void MAJ_temps(int v1, int v2, int v3){
         this.valeur1 = v1; 
@@ -23,20 +29,32 @@ public class Temps {
         this.valeur3 = v3;
     }
 
-    private void diff_valeur1(int v1){
+    /**
+     * Soustrait deux valeurs numéro 1 de temps.
+     * @param v1 Valeur numéro 1.
+     */
+    protected void diff_valeur1(int v1){
         this.valeur1 -= v1;
         if (this.valeur1 < 0){
             this.valeur1 = 0;
         }
     }
-    private void diff_valeur2(int v2){
+    /**
+     * Soustrait deux valeurs numéro 2 de temps.
+     * @param v2 Valeur numéro 2.
+     */
+    protected void diff_valeur2(int v2){
         this.valeur2 -= v2;
         if (this.valeur2 < 0){
             this.valeur2 += 100;
             this.valeur1 -= 1;
         }
     }
-    private void diff_valeur3(int v3){
+    /**
+     * Soustrait deux valeurs numéro 3 de temps.
+     * @param v3 Valeur numéro 3.
+     */
+    protected void diff_valeur3(int v3){
         this.valeur3 -= v3;
         if (this.valeur3 < 0){
             this.valeur3 += 100;
@@ -44,17 +62,29 @@ public class Temps {
         }
     }
 
-    private void somme_valeur1(int v1){
+    /** 
+     * Additionne deux valeurs numéro 1 de temps
+     * @param v1 Valeur numéro 1.
+     */
+    protected void somme_valeur1(int v1){
         this.valeur1 += v1;
     }
-    private void somme_valeur2(int v2){
+    /** 
+     * Additionne deux valeurs numéro 2 de temps
+     * @param v2 Valeur numéro 2.
+     */
+    protected void somme_valeur2(int v2){
         this.valeur2 += v2;
         if (this.valeur2 >= 100){
             this.valeur2 -= 100;
             this.valeur1 += 1;
         }
     }
-    private void somme_valeur3(int v3){
+    /** 
+     * Additionne deux valeurs numéro 3 de temps
+     * @param v3 Valeur numéro 3.
+     */
+    protected void somme_valeur3(int v3){
         this.valeur3 += v3;
         if (this.valeur3 >= 100){
             this.valeur3 -= 100;
@@ -62,16 +92,30 @@ public class Temps {
         }
     }
 
+    /**
+     * Additionne deux temps ensembles.
+     * Le calcul est fait en sorte pour que les bases soit bonnes en fonction de ce qu'on utilise comme type de temps.
+     * @param temps : Variable de classe Temps.
+     */
     public void somme_temps(Temps temps){
         somme_valeur1(temps.valeur1);
         somme_valeur2(temps.valeur2);
         somme_valeur3(temps.valeur3);
     }
 
+    /**
+     * Soustrait deux temps ensembles.
+     * Le calcul est fait en sorte pour que les bases soit bonnes en fonction de ce qu'on utilise comme type de temps.
+     * @param temps : Variable de classe Temps.
+     */
     public void diff_temps(Temps temps){
         diff_valeur1(temps.valeur1);
         diff_valeur2(temps.valeur2);
         diff_valeur3(temps.valeur3);
+    }
+
+    public static void diff_Timer_Chrono(Timer timer, Chrono chrono){
+        return;
     }
 
     public String toString(){

@@ -5,6 +5,13 @@ public class Timer extends Temps{
     int minute;
     int seconde;
     
+    /**
+     * Sous-Classe de Temps qui permet de mettre en forme un Timer de format 'heure,minute,seconde' 
+     * et d'avoir leur spécificité d'affichage et de calcul car pas la même base.
+     * @param h : Valeur des heures.
+     * @param m : Valeur des minutes.
+     * @param s : Valeur des secondes.
+     */
     public Timer(int h, int m, int s){
         super(h,m,s);
         this.heure = h; 
@@ -12,30 +19,42 @@ public class Timer extends Temps{
         this.seconde = s;
     }
 
-    void diff_valeur2(int v2){
-        this.valeur2 -= v2;
+    /**
+    * {@inheritDoc}
+    */
+    protected void diff_valeur2(int m){
+        this.valeur2 -= m;
         if (this.valeur2 < 0){
             this.valeur2 += 60;
             this.valeur1 -= 1;
         }
     }
-    void diff_valeur3(int v3){
-        this.valeur3 -= v3;
+    /**
+    * {@inheritDoc}
+    */
+    protected void diff_valeur3(int s){
+        this.valeur3 -= s;
         if (this.valeur3 < 0){
             this.valeur3 += 60;
             this.valeur2 -= 1;
         }
     }
 
-    void somme_valeur2(int v2){
-        this.valeur2 += v2;
+    /**
+    * {@inheritDoc}
+    */
+    protected void somme_valeur2(int m){
+        this.valeur2 += m;
         if (this.valeur2 >= 60){
             this.valeur2 -= 60;
             this.valeur1 += 1;
         }
     }
-    void somme_valeur3(int v3){
-        this.valeur3 += v3;
+    /**
+    * {@inheritDoc}
+    */
+    protected void somme_valeur3(int m){
+        this.valeur3 += m;
         if (this.valeur3 >= 60){
             this.valeur3 -= 60;
             this.valeur2 += 1;
