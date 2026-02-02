@@ -1,22 +1,32 @@
 package Temps;
 
 public class Chrono extends Temps{
-    int minute;
-    int seconde;
-    int milliseconde;
+    public int minute;
+    public int seconde;
+    public int milliseconde;
     
     /**
      * Sous-Classe de Temps qui permet de mettre en forme un Chronométre de format 'minute,seconde,milliseconde' 
      * et d'avoir leur spécificité d'affichage et de calcul car pas la même base.
-     * @param m : Valeur des minutes
-     * @param s : Valeur des secondes
-     * @param ms : Valeur des millisecondes
+     * @param m : Valeur des minutes.
+     * @param s : Valeur des secondes.
+     * @param ms : Valeur des millisecondes.
      */
     public Chrono(int m, int s, int ms){
         super(m,s,ms);
         this.minute = m; 
         this.seconde = s; 
         this.milliseconde = ms;
+    }
+
+    public int getValeur1(){
+        return minute;
+    }
+    public int getValeur2(){
+        return seconde;
+    }
+    public int getValeur3(){
+        return milliseconde;
     }
 
     /**

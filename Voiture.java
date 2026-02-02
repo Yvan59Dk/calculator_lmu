@@ -14,19 +14,19 @@ public class Voiture {
     final static double LMGTE_FUEL_MAX = 99.0;
     
     // Spec de véhicule
-    int spec = 0; // 1 = HYP, 2 = LMP2
+    public int spec = 0; // 1 = HYP, 2 = LMP2
 
     // Variable de Fuel
-    Fuel fuel;
+    public Fuel fuel;
 
     // Variable d'Energie
-    Energy energy;
+    public Energy energy;
 
-    double nbTour;
-    double[] save;
+    public int nbTour;
+    public double[] save;
 
-    Chrono chrono;
-    Timer tempsRestant;
+    public Chrono chrono;
+    public Timer tempsRestant;
 
     public Voiture(int spec){
         this.spec = spec;
@@ -61,7 +61,7 @@ public class Voiture {
         
         this.chrono = new Chrono(M_Chrono, S_Chrono, MS_Chrono);
         this.tempsRestant = new Timer(H_temp, M_temp, S_temp);
-        this.nbTour = Central_Service.calcul_nbTour(this.chrono, this.tempsRestant);
+        this.nbTour = Central_Service.calcul_nbTour_reel(this.chrono, this.tempsRestant);
     }
 
     public Voiture(int spec, double conso_fuel, Chrono chrono, Timer timer){
@@ -79,6 +79,6 @@ public class Voiture {
 
         this.chrono = chrono;
         this.tempsRestant = timer;
-        this.nbTour = Central_Service.calcul_nbTour(this.chrono, this.tempsRestant);
+        this.nbTour = Central_Service.calcul_nbTour_reel(this.chrono, this.tempsRestant);
     }
 }

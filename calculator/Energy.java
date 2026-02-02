@@ -2,11 +2,12 @@ package calculator;
 
 public class Energy {
     // Variable final de l'énergie max
-    final static double ENERGY_MAX = 100.0;
+    final public static double ENERGY_MAX = 100.0;
 
-    // Variable d'Energie
-    double energy_actuel;   // Energie dispo dans la voiture
-    double energy_conso;    // Consommation d'énergie par tour
+    /*** Energie dispo dans la voiture */
+    public double energy_actuel;
+    /*** Consommation d'énergie par tour */
+    public double energy_conso;
 
     public Energy(){        // Cas si pas d'énergie dans la catégorie
         this.energy_actuel = 0;
@@ -16,6 +17,18 @@ public class Energy {
     public Energy(double energy_actuel, double energy_conso){
         this.energy_actuel = energy_actuel;
         this.energy_conso = energy_conso;
+    }
+
+    public Energy(Energy energy){
+        this.energy_actuel = energy.energy_actuel;
+        this.energy_conso = energy.energy_conso;
+    }
+
+    public double getEnergy_actuel(){
+        return energy_actuel;
+    }
+    public double getEnergy_conso(){
+        return energy_conso;
     }
 
     /**

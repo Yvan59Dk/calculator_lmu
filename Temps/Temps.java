@@ -1,9 +1,9 @@
 package Temps;
 
 public class Temps {
-    int valeur1;
-    int valeur2;
-    int valeur3;
+    public int valeur1;
+    public int valeur2;
+    public int valeur3;
 
     /**
      * Classe de temps permettant de faire un temps à trois valeur de base 100.
@@ -15,6 +15,22 @@ public class Temps {
         this.valeur1 = v1; 
         this.valeur2 = v2; 
         this.valeur3 = v3;
+    }
+
+    public Temps(Temps temps){
+        this.valeur1 = temps.valeur1;
+        this.valeur2 = temps.valeur2;
+        this.valeur2 = temps.valeur3;
+    }
+
+    public int getValeur1(){
+        return valeur1;
+    }
+    public int getValeur2(){
+        return valeur2;
+    }
+    public int getValeur3(){
+        return valeur3;
     }
 
     /**
@@ -119,7 +135,7 @@ public class Temps {
      * @param timer : Le timer à modifier
      * @param chrono : Le chrono de référence
      */
-    public static void diff_Timer_Chrono(Timer timer, Chrono chrono){
+    public void diff_Timer_Chrono(Timer timer, Chrono chrono){
         timer.diff_valeur2(chrono.minute);
         timer.diff_valeur3(chrono.seconde);
     }

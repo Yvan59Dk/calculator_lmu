@@ -1,17 +1,27 @@
 package calculator;
 public class Fuel {
 
-    // Variable de Fuel
-    double fuel_conso;      // Consommation de carburant par tour
-    double fuel_actuel;     // Carburant dans la voiture
-    double fuel_max;        // Capacité de carburant max du véhicule
-    double fuel_rendement;  // Rendement Carburant/Energy
+    /*** Double : Consommation de carburant par tour */
+    public double fuel_conso;
+    /*** Double : Carburant dans la voiture */
+    public double fuel_actuel;
+    /*** Double : Capacité de carburant max du véhicule */
+    public double fuel_max;
+    /*** Double : Rendement Carburant/Energy */
+    public double fuel_rendement;
 
     public Fuel(double fuel_actuel, double fuel_conso, double fuel_max, double fuel_rendement){
         this.fuel_actuel = fuel_actuel;
         this.fuel_conso = fuel_conso;
         this.fuel_rendement = fuel_rendement;
         this.fuel_actuel = fuel_actuel;
+    }
+
+    public Fuel(Fuel fuel){
+        this.fuel_actuel = fuel.fuel_actuel;
+        this.fuel_conso = fuel.fuel_conso;
+        this.fuel_rendement = fuel.fuel_rendement;
+        this.fuel_actuel = fuel.fuel_actuel;
     }
 
     /**
@@ -27,6 +37,20 @@ public class Fuel {
         } 
         this.fuel_actuel = fuel_actuel;
     }
+
+    public double getFuel_conso(){
+        return fuel_conso;
+    }
+    public double getFuel_actuel(){
+        return fuel_actuel;
+    }
+    public double getFuel_max(){
+        return fuel_max;
+    }
+    public double getFuel_rendement(){
+        return fuel_rendement;
+    }
+
     /**
      * Met à jour la valeur de consommation de carburant
      * @param fuel_conso : double qui devient la nouvelle valeur de consommation de carburant 
@@ -41,5 +65,12 @@ public class Fuel {
      */
     public void MAJ_fuel_rendement(double fuel_rendement){
         this.fuel_rendement = fuel_rendement;
+    }
+
+    public void evolutionFuel(){
+        this.fuel_actuel -= fuel_conso;
+        if (this.fuel_actuel < 0){
+            this.fuel_actuel = 0;
+        }
     }
 }

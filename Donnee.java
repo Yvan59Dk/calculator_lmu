@@ -1,26 +1,29 @@
 import Temps.*;
 
 public class Donnee {
-    int rangSave;
-    int numTour;
-    double consoFuel;
-    double consoEnergy;
-    Chrono chrono;
-    boolean stand = false;
+    public int numTour;
+    public double consoFuel;
+    public double consoEnergy;
+    public Chrono chrono;
+    public Timer timer;
+    public boolean stand = false;
 
-    public Donnee(int rangSave, int numTour, double consoFuel, double consoEnergy, Chrono chrono, boolean stand){
-        this.rangSave = rangSave;
+    public Donnee(int numTour, double consoFuel, double consoEnergy, Chrono chrono, Timer timer, boolean stand){
         this.numTour = numTour;
         this.consoFuel = consoFuel;
         this.consoEnergy = consoEnergy;
         this.chrono = chrono;
+        this.timer = timer;
         this.stand = stand;
+    }
+
+    public boolean getStand(){
+        return stand;
     }
 
     public String toString(){
         String res = "";
-        res = "| Save+" + this.rangSave + 
-            " | Tour " + this.numTour +
+        res =" | Tour " + this.numTour +
             " | Conso : " + this.consoFuel + "L " + this.consoEnergy + "% " +
             " | " + this.chrono + " | ";
         if (stand){

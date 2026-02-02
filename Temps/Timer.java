@@ -1,9 +1,9 @@
 package Temps;
 
 public class Timer extends Temps{
-    int heure;
-    int minute;
-    int seconde;
+    public int heure;
+    public int minute;
+    public int seconde;
     
     /**
      * Sous-Classe de Temps qui permet de mettre en forme un Timer de format 'heure,minute,seconde' 
@@ -17,6 +17,23 @@ public class Timer extends Temps{
         this.heure = h; 
         this.minute = m; 
         this.seconde = s;
+    }
+
+    public Timer(Timer timer){
+        super(timer);
+        this.heure = timer.heure; 
+        this.minute = timer.minute; 
+        this.seconde = timer.seconde;
+    }
+
+    public int getValeur1(){
+        return heure;
+    }
+    public int getValeur2(){
+        return minute;
+    }
+    public int getValeur3(){
+        return seconde;
     }
 
     /**
