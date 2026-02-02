@@ -19,9 +19,9 @@ public class Temps {
 
     /**
      * Met à jour le chrono de référence de la voiture ( peut être son meilleur ou son moyen sur 5 tours ).
-     * @param valeur1 : la premiere valeur.
-     * @param valeur2 : la deuxiéme valeur.
-     * @param valeur3 : la troisiéme valeur.
+     * @param v1 : la premiere valeur.
+     * @param v2 : la deuxiéme valeur.
+     * @param v3 : la troisiéme valeur.
      */
     public void MAJ_temps(int v1, int v2, int v3){
         this.valeur1 = v1; 
@@ -114,8 +114,14 @@ public class Temps {
         diff_valeur3(temps.valeur3);
     }
 
+    /**
+     * Soustrait au timer un chrono
+     * @param timer : Le timer à modifier
+     * @param chrono : Le chrono de référence
+     */
     public static void diff_Timer_Chrono(Timer timer, Chrono chrono){
-        return;
+        timer.diff_valeur2(chrono.minute);
+        timer.diff_valeur3(chrono.seconde);
     }
 
     public String toString(){
