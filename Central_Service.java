@@ -103,13 +103,14 @@ public class Central_Service {
      * @param litreGlobalRequis : double qui est le carburant total requis pour atteindre la ligne d'arrivée.
      * @return une liste d'élément de classe Données.
      */
-    public static Donnee[] calcul_tour(Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour, double litreGlobalRequis){
-        Donnee[] listeDonnees = new Donnee[nbTour - nbTourActuel+1];
+    public static ArrayList<Donnee> calcul_tour(Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour, double litreGlobalRequis){
+        ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
         Fuel fuelTemp = new Fuel(fuel);
         Energy energyTemp = new Energy(energy);
         Timer timerTemp = new Timer(timer);
         boolean stand = false;
-        for (int i = 1; i < nbTour - nbTourActuel; i++){
+        int i = 0;
+        while(timerTemp.verif()){
             if (stand){
                 chrono.diff_temps(new Chrono(1,10,0));
             }
@@ -124,7 +125,8 @@ public class Central_Service {
                 chrono.somme_temps(new Chrono(1,10,0));
             }
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-            listeDonnees[tour] = new Donnee(tour, fuelTemp.getFuel_conso(), energyTemp.getEnergy_conso(), chrono, timerTemp, stand);
+            listeDonnees.add(new Donnee(tour, fuelTemp.getFuel_conso(), energyTemp.getEnergy_conso(), chrono, timerTemp, stand));
+            i++;
         }
         return listeDonnees;
     }
@@ -134,17 +136,13 @@ public class Central_Service {
      * @param donnee : Liste d'élément de classe 'Donnee' contennant les données des tours.
      * @return les donnees des tours correspondant au arrêt au stand.
      */
-    public static Donnee[] Donnee_tourStand(Donnee[] donnee){
+    public static ArrayList<Donnee> Donnee_tourStand(ArrayList<Donnee> donnee){
         ArrayList<Donnee> stand = new ArrayList<Donnee>();
-        for(int i = 0; i < donnee.length; i++){
-            if (donnee[i].getStand()){
-                stand.add(donnee[i]);
+        for(int i = 0; i < donnee.size(); i++){
+            if (donnee.get(i).getStand()){
+                stand.add(donnee.get(i));
             }
         }
-        Donnee[] res = new Donnee[stand.size()];
-        for(int i = 0; i < stand.size(); i++){
-            res[i] = stand.get(i);
-        }
-        return res;
+        return stand;
     }
 }

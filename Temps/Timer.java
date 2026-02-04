@@ -78,6 +78,13 @@ public class Timer extends Temps{
         }
     }
 
+    public boolean verif(){
+        if(heure != 0 && minute != 0 && seconde != 0){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
         return this.heure + " h " + this.minute + " min " + this.seconde + " s";

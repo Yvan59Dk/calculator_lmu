@@ -50,7 +50,7 @@ public class Voiture {
         this.spec = spec;
 
         if (spec == 1){
-            this.fuel = new Fuel(HYP_FUEL_MAX,  conso_fuel, HYP_FUEL_MAX, 0.84 );
+            this.fuel = new Fuel(HYP_FUEL_MAX, conso_fuel, HYP_FUEL_MAX, 0.84 );
             this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
         } else if (spec == 2){
             this.fuel = new Fuel(LMP2_FUEL_MAX, conso_fuel, LMP2_FUEL_MAX, 1);
