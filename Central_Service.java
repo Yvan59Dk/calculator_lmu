@@ -32,7 +32,6 @@ public class Central_Service {
         Timer timer = new Timer(timer_course);
         int tour = 0;
         while (timer.verif()){
-            System.out.println(timer + "et nbTour : " + tour);
             timer.diff_Timer_Chrono(timer, chrono);
             tour++;
         }
