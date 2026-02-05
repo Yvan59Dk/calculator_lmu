@@ -6,7 +6,7 @@ import calculator.*;
 /**
  * Classe qui englobe de manière général les méthodes à utilisé dans le code.
  */
-public class Central_Service {
+public class Central_Service{
     /**
      * Fonction Calculatoire qui calcul le nombre de tour à faire durant la course.
      * @param chrono : La variable de classe 'Chrono' qui contient le chrono de référence.
@@ -111,21 +111,26 @@ public class Central_Service {
         boolean stand = false;
         int i = 0;
         while(timerTemp.verif()){
+
             if (stand){
                 chrono.diff_temps(new Chrono(1,10,0));
+                // A revoir : double[] refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
+                energyTemp.MAJ_energy_actuel(100);
+                fuelTemp.MAJ_fuel_actuel(120);
+                stand = false;
             }
-            stand = false;
-            int tour = (nbTour - nbTourActuel) + i;
-            fuel.evolutionFuel();
-            if (fuel.getFuel_actuel() == 0){
+
+            int tour = nbTourActuel + i;
+            fuelTemp.evolutionFuel();
+            energyTemp.evolutionEnergy();
+
+            if (fuelTemp.getFuel_actuel() == 0 || energyTemp.getEnergy_actuel() == 0){
                 stand = true;
-                double[] refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
-                energyTemp.MAJ_energy_actuel(refuelStand[1]);
-                fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
                 chrono.somme_temps(new Chrono(1,10,0));
             }
+
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-            listeDonnees.add(new Donnee(tour, fuelTemp.getFuel_conso(), energyTemp.getEnergy_conso(), chrono, timerTemp, stand));
+            listeDonnees.add(new Donnee(tour, new Fuel(fuelTemp), new Energy(energyTemp), new Chrono(chrono), new Timer(timerTemp), stand));
             i++;
         }
         return listeDonnees;

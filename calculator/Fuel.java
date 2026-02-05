@@ -21,7 +21,7 @@ public class Fuel {
         this.fuel_actuel = fuel.fuel_actuel;
         this.fuel_conso = fuel.fuel_conso;
         this.fuel_rendement = fuel.fuel_rendement;
-        this.fuel_max = fuel_max;
+        this.fuel_max = fuel.fuel_max;
     }
 
     /**

@@ -1,17 +1,18 @@
 import Temps.*;
+import calculator.*;
 
 public class Donnee {
     public int numTour;
-    public double consoFuel;
-    public double consoEnergy;
+    public Fuel fuel;
+    public Energy energy;
     public Chrono chrono;
     public Timer timer;
     public boolean stand = false;
 
-    public Donnee(int numTour, double consoFuel, double consoEnergy, Chrono chrono, Timer timer, boolean stand){
+    public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand){
         this.numTour = numTour;
-        this.consoFuel = consoFuel;
-        this.consoEnergy = consoEnergy;
+        this.fuel = fuel;
+        this.energy = energy;
         this.chrono = chrono;
         this.timer = timer;
         this.stand = stand;
@@ -24,7 +25,8 @@ public class Donnee {
     public String toString(){
         String res = "";
         res =" | Tour " + this.numTour +
-            " | Conso : " + this.consoFuel + "L " + this.consoEnergy + "% " +
+            " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
+            " | Actuel : " + this.fuel.getFuel_actuel()+ "L " + this.energy.getEnergy_actuel()+ "% "+
             " | " + this.chrono + " | ";
         if (stand){
             res += "Stand ! | \n";

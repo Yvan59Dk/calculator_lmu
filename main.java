@@ -2,9 +2,16 @@ import Temps.*;
 
 public class main {
     public static void main(String[] args) {
-        Chrono ch = new Chrono(1, 34, 234);
-        Timer temps = new Timer(6,56,45);
-        Voiture v2 = new Voiture(Categorie.HYP, 2.45, ch, temps);
+        Chrono ch = new Chrono(3, 8, 2);
+        Timer temps = new Timer(6,0,0);
+        Voiture v2 = new Voiture(Categorie.HYP, ch, temps);
         System.out.print(v2);
+
+        /*Chrono ch1 = new Chrono(1, 0, 0);
+        Timer temps1 = new Timer(24,00,00);
+        Voiture v1 = new Voiture(Categorie.LMP2, ch1, temps1);
+        System.out.print(v1);*/
+
+        System.out.print(v2.donneeTour(0));
     }
 }

@@ -37,7 +37,7 @@ public class Energy {
      * @throws IllegalArgumentException si le paramétre n'est pas contenu entre 0 et 100
      */
     public void MAJ_energy_actuel(double energy_actuel){
-        if (0 >= energy_actuel || energy_actuel >= ENERGY_MAX){
+        if (0 > energy_actuel || energy_actuel > ENERGY_MAX){
             throw new IllegalArgumentException(
                 "Erreur d'énergie : l'énergie doit être compris entre 0 et " + ENERGY_MAX 
                 + " ( Energie reçu : " + energy_actuel + " )");
@@ -50,6 +50,13 @@ public class Energy {
      */
     public void MAJ_energy_conso(double energy_conso){
         this.energy_conso = energy_conso;
+    }
+
+    public void evolutionEnergy(){
+        this.energy_actuel -= energy_conso;
+        if (this.energy_actuel < 0){
+            this.energy_actuel = 0;
+        }
     }
 
     public String toString(){

@@ -12,30 +12,38 @@ public class Chrono extends Temps{
         super(m,s,ms);
     }
 
-    /**
-    * {@inheritDoc}
-    */
+    public Chrono(Chrono chrono){
+        super(chrono);
+    }
+
     protected void diff_valeur2(int v2){
         this.valeur2 -= v2;
-        if(this.valeur1 != 0){
+        if (this.valeur2 < 0){
+            if (this.valeur1 > 0){
                 this.valeur2 += 60;
                 this.valeur1 -= 1;
             } else {
                 this.valeur2 = 0;
             }
+        }
     }
-    /**
-     * {@inheritDoc}
-     */
+
     protected void diff_valeur3(int v3){
         this.valeur3 -= v3;
-        if(this.valeur2 != 0){
+        if (this.valeur3 < 0){
+            if (this.valeur2 > 0){
                 this.valeur3 += 1000;
                 this.valeur2 -= 1;
+            } else if (this.valeur1 > 0){
+                this.valeur3 += 1000;
+                this.valeur2 = 59;
+                this.valeur1 -= 1;
             } else {
                 this.valeur3 = 0;
             }
+        }
     }
+
     /**
     * {@inheritDoc}
     */
