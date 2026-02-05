@@ -14,7 +14,7 @@ public class Voiture {
     final static double LMGTE_FUEL_MAX = 99.0;
     
     // Spec de véhicule
-    public int spec = 0; // 1 = HYP, 2 = LMP2
+    public Categorie spec; // 0 = HYP, 1 = LMP2
 
     // Variable de Fuel
     public Fuel fuel;
@@ -28,17 +28,27 @@ public class Voiture {
     public Chrono chrono;
     public Timer tempsRestant;
 
-    public Voiture(int spec){
+    public Voiture(Categorie spec){
         this.spec = spec;
 
-        if (spec == 1){
-            this.fuel = new Fuel(HYP_FUEL_MAX,  2.0, HYP_FUEL_MAX, 0.84 );
+        if (spec == Categorie.HYP){
+            this.fuel = new Fuel(HYP_FUEL_MAX, 2.0, HYP_FUEL_MAX, 0.84);
             this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
-        } else if (spec == 2){
+        } else if (spec == Categorie.LMP2){
             this.fuel = new Fuel(LMP2_FUEL_MAX, 2.0, LMP2_FUEL_MAX, 1);
             this.energy = new Energy();
+        } else if (spec == Categorie.LMP3){
+            this.fuel = new Fuel(LMP3_FUEL_MAX, 2.0, LMP3_FUEL_MAX, 1);
+            this.energy = new Energy();
+        } else if (spec == Categorie.LMGT3){
+            this.fuel = new Fuel(LMGT3_FUEL_MAX, 2.0, LMGT3_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
+        } else if (spec == Categorie.LMGTE){
+            this.fuel = new Fuel(LMGTE_FUEL_MAX, 2.0, LMGTE_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
         } else {
-            System.out.printf("ERROR : pas de spec");
+            throw new IllegalArgumentException(
+                "Erreur de Categorie : cette spec n'existe pas. Spec reçu : "+ spec);
         }
         this.nbTour = 0;
 
@@ -46,17 +56,27 @@ public class Voiture {
         this.tempsRestant = new Timer(0, 0, 0);
     }
 
-    public Voiture(int spec, double conso_fuel, int M_Chrono, int S_Chrono, int MS_Chrono, int H_temp, int M_temp, int S_temp){
+    public Voiture(Categorie spec, double conso_fuel, int M_Chrono, int S_Chrono, int MS_Chrono, int H_temp, int M_temp, int S_temp){
         this.spec = spec;
 
-        if (spec == 1){
-            this.fuel = new Fuel(HYP_FUEL_MAX, conso_fuel, HYP_FUEL_MAX, 0.84 );
+        if (spec == Categorie.HYP){
+            this.fuel = new Fuel(HYP_FUEL_MAX, conso_fuel, HYP_FUEL_MAX, 0.84);
             this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
-        } else if (spec == 2){
+        } else if (spec == Categorie.LMP2){
             this.fuel = new Fuel(LMP2_FUEL_MAX, conso_fuel, LMP2_FUEL_MAX, 1);
             this.energy = new Energy();
+        } else if (spec == Categorie.LMP3){
+            this.fuel = new Fuel(LMP3_FUEL_MAX, conso_fuel, LMP3_FUEL_MAX, 1);
+            this.energy = new Energy();
+        } else if (spec == Categorie.LMGT3){
+            this.fuel = new Fuel(LMGT3_FUEL_MAX, conso_fuel, LMGT3_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
+        } else if (spec == Categorie.LMGTE){
+            this.fuel = new Fuel(LMGTE_FUEL_MAX, conso_fuel, LMGTE_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
         } else {
-            System.out.printf("ERROR : pas de spec");
+            throw new IllegalArgumentException(
+                "Erreur de Categorie : cette spec n'existe pas. Spec reçu : "+ spec);
         }
         
         this.chrono = new Chrono(M_Chrono, S_Chrono, MS_Chrono);
@@ -64,21 +84,45 @@ public class Voiture {
         this.nbTour = Central_Service.calcul_nbTour_reel(this.chrono, this.tempsRestant);
     }
 
-    public Voiture(int spec, double conso_fuel, Chrono chrono, Timer timer){
+    public Voiture(Categorie spec, double conso_fuel, Chrono chrono, Timer timer){
         this.spec = spec;
 
-        if (spec == 1){
-            this.fuel = new Fuel(HYP_FUEL_MAX,  conso_fuel, HYP_FUEL_MAX, 0.84 );
+        if (spec == Categorie.HYP){
+            this.fuel = new Fuel(HYP_FUEL_MAX, conso_fuel, HYP_FUEL_MAX, 0.84);
             this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
-        } else if (spec == 2){
+        } else if (spec == Categorie.LMP2){
             this.fuel = new Fuel(LMP2_FUEL_MAX, conso_fuel, LMP2_FUEL_MAX, 1);
             this.energy = new Energy();
+        } else if (spec == Categorie.LMP3){
+            this.fuel = new Fuel(LMP3_FUEL_MAX, conso_fuel, LMP3_FUEL_MAX, 1);
+            this.energy = new Energy();
+        } else if (spec == Categorie.LMGT3){
+            this.fuel = new Fuel(LMGT3_FUEL_MAX, conso_fuel, LMGT3_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
+        } else if (spec == Categorie.LMGTE){
+            this.fuel = new Fuel(LMGTE_FUEL_MAX, conso_fuel, LMGTE_FUEL_MAX, 0.84);
+            this.energy = new Energy(ENERGY_MAX,ENERGY_MAX);
         } else {
-            System.out.printf("ERROR : pas de spec");
+            throw new IllegalArgumentException(
+                "Erreur de Categorie : cette spec n'existe pas. Spec reçu : "+ spec);
         }
 
         this.chrono = chrono;
         this.tempsRestant = timer;
         this.nbTour = Central_Service.calcul_nbTour_reel(this.chrono, this.tempsRestant);
+    }
+
+    public String toString(){
+        String res = "|| Catégorie : " + spec.getDescription() + "\n"
+                    + "|| Chrono : " + chrono + "\n"
+                    + "|| Timer : " + tempsRestant + "\n"
+                    + "|| nbTour : " + nbTour + "\n"
+                    + "-------------------------\n"
+                    + "|| -- FUEL -- \n"
+                    + fuel
+                    + "|| -- ENERGIE -- \n"
+                    + energy;
+        return res;
+
     }
 }

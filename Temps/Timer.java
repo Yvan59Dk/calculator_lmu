@@ -1,9 +1,6 @@
 package Temps;
 
 public class Timer extends Temps{
-    public int heure;
-    public int minute;
-    public int seconde;
     
     /**
      * Sous-Classe de Temps qui permet de mettre en forme un Timer de format 'heure,minute,seconde' 
@@ -14,26 +11,10 @@ public class Timer extends Temps{
      */
     public Timer(int h, int m, int s){
         super(h,m,s);
-        this.heure = h; 
-        this.minute = m; 
-        this.seconde = s;
     }
 
     public Timer(Timer timer){
         super(timer);
-        this.heure = timer.heure; 
-        this.minute = timer.minute; 
-        this.seconde = timer.seconde;
-    }
-
-    public int getValeur1(){
-        return heure;
-    }
-    public int getValeur2(){
-        return minute;
-    }
-    public int getValeur3(){
-        return seconde;
     }
 
     /**
@@ -41,9 +22,13 @@ public class Timer extends Temps{
     */
     protected void diff_valeur2(int m){
         this.valeur2 -= m;
-        if (this.valeur2 < 0){
-            this.valeur2 += 60;
-            this.valeur1 -= 1;
+        if (this.valeur2 <= 0){
+            if(this.valeur1 != 0){
+                this.valeur2 += 60;
+                this.valeur1 -= 1;
+            } else {
+                this.valeur2 = 0;
+            }
         }
     }
     /**
@@ -52,8 +37,16 @@ public class Timer extends Temps{
     protected void diff_valeur3(int s){
         this.valeur3 -= s;
         if (this.valeur3 < 0){
-            this.valeur3 += 60;
-            this.valeur2 -= 1;
+            if (this.valeur2 > 0){
+                this.valeur3 += 60;
+                this.valeur2 -= 1;
+            } else if (this.valeur1 > 0){
+                this.valeur3 += 60;
+                this.valeur2 = 59;
+                this.valeur1 -= 1;
+            } else {
+                this.valeur3 = 0;
+            }
         }
     }
 
@@ -71,15 +64,16 @@ public class Timer extends Temps{
     * {@inheritDoc}
     */
     protected void somme_valeur3(int m){
-        this.valeur3 += m;
-        if (this.valeur3 >= 60){
-            this.valeur3 -= 60;
+        this.valeur1 += m;
+        if (this.valeur1 >= 60){
+            this.valeur1 -= 60;
             this.valeur2 += 1;
         }
     }
 
     public boolean verif(){
-        if(heure != 0 && minute != 0 && seconde != 0){
+        int temps_seconde_timer = valeur1* 3600 + valeur2*60 + valeur3;
+        if(temps_seconde_timer > 0){
             return true;
         }
         return false;
@@ -87,6 +81,6 @@ public class Timer extends Temps{
 
     @Override
     public String toString(){
-        return this.heure + " h " + this.minute + " min " + this.seconde + " s";
+        return this.valeur1 + " h " + this.valeur2 + " min " + this.valeur3 + " s";
     }
 }

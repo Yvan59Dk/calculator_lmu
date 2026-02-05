@@ -31,7 +31,8 @@ public class Central_Service {
     public static int calcul_nbTour_reel(Chrono chrono, Timer timer_course){
         Timer timer = new Timer(timer_course);
         int tour = 0;
-        while (timer.getValeur3() != 0){
+        while (timer.verif()){
+            System.out.println(timer + "et nbTour : " + tour);
             timer.diff_Timer_Chrono(timer, chrono);
             tour++;
         }

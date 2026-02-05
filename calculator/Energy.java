@@ -51,4 +51,13 @@ public class Energy {
     public void MAJ_energy_conso(double energy_conso){
         this.energy_conso = energy_conso;
     }
+
+    public String toString(){
+        if (energy_actuel == 0 && energy_conso == 0){
+            return "|| Pas d'énergie \n";
+        } else {
+            return "|| Energie actuel : " + energy_actuel + "\n"
+                + "|| E/tour : " + energy_conso + "\n";
+        }
+    }
 }

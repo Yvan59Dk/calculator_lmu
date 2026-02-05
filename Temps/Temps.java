@@ -1,9 +1,9 @@
 package Temps;
 
 public class Temps {
-    public int valeur1;
-    public int valeur2;
-    public int valeur3;
+    protected int valeur1;
+    protected int valeur2;
+    protected int valeur3;
 
     /**
      * Classe de temps permettant de faire un temps à trois valeur de base 100.
@@ -20,7 +20,7 @@ public class Temps {
     public Temps(Temps temps){
         this.valeur1 = temps.valeur1;
         this.valeur2 = temps.valeur2;
-        this.valeur2 = temps.valeur3;
+        this.valeur3 = temps.valeur3;
     }
 
     public int getValeur1(){
@@ -51,7 +51,7 @@ public class Temps {
      */
     protected void diff_valeur1(int v1){
         this.valeur1 -= v1;
-        if (this.valeur1 < 0){
+        if (this.valeur1 <= 0){
             this.valeur1 = 0;
         }
     }
@@ -61,9 +61,14 @@ public class Temps {
      */
     protected void diff_valeur2(int v2){
         this.valeur2 -= v2;
-        if (this.valeur2 < 0){
-            this.valeur2 += 100;
-            this.valeur1 -= 1;
+        if (this.valeur2 <= 0){
+            if(this.valeur1 != 0){
+                this.valeur2 += 100;
+                this.valeur1 -= 1;
+            } else {
+                this.valeur2 = 0;
+            }
+            
         }
     }
     /**
@@ -72,9 +77,14 @@ public class Temps {
      */
     protected void diff_valeur3(int v3){
         this.valeur3 -= v3;
-        if (this.valeur3 < 0){
-            this.valeur3 += 100;
-            this.valeur2 -= 1;
+        if (this.valeur3 <= 0){
+            if(this.valeur2 != 0){
+                this.valeur3 += 100;
+                this.valeur2 -= 1;
+            } else {
+                this.valeur3 = 0;
+            }
+            
         }
     }
 
@@ -136,8 +146,8 @@ public class Temps {
      * @param chrono : Le chrono de référence
      */
     public void diff_Timer_Chrono(Timer timer, Chrono chrono){
-        timer.diff_valeur2(chrono.minute);
-        timer.diff_valeur3(chrono.seconde);
+        timer.diff_valeur2(chrono.valeur1);
+        timer.diff_valeur3(chrono.valeur2);
     }
 
     public String toString(){

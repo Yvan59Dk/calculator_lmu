@@ -14,14 +14,14 @@ public class Fuel {
         this.fuel_actuel = fuel_actuel;
         this.fuel_conso = fuel_conso;
         this.fuel_rendement = fuel_rendement;
-        this.fuel_actuel = fuel_actuel;
+        this.fuel_max = fuel_max;
     }
 
     public Fuel(Fuel fuel){
         this.fuel_actuel = fuel.fuel_actuel;
         this.fuel_conso = fuel.fuel_conso;
         this.fuel_rendement = fuel.fuel_rendement;
-        this.fuel_actuel = fuel.fuel_actuel;
+        this.fuel_max = fuel_max;
     }
 
     /**
@@ -72,5 +72,12 @@ public class Fuel {
         if (this.fuel_actuel < 0){
             this.fuel_actuel = 0;
         }
+    }
+
+    public String toString(){
+        return "|| Fuel réservoir : " + fuel_actuel + "\n"
+                + "|| F/tour : " + fuel_conso + "\n"
+                + "|| Fuel max : " + fuel_max + "\n"
+                + "|| Fuel Rendement : " + fuel_rendement + "\n";
     }
 }
