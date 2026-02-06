@@ -28,7 +28,7 @@ public class Central_Service{
      * @param timer_course : La variable de classe 'Timer' qui contient le temps restant de la course.
      * @return un integer qui est le nombre de tour réel.
      */
-    public static int calcul_nbTour_reel(Chrono chrono, Timer timer_course){
+    public static int calcul_nbTour_théorique(Chrono chrono, Timer timer_course){
         Timer timer = new Timer(timer_course);
         int tour = 0;
         while (timer.verif()){
@@ -114,9 +114,9 @@ public class Central_Service{
 
             if (stand){
                 chrono.diff_temps(new Chrono(1,10,0));
-                // A revoir : double[] refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
-                energyTemp.MAJ_energy_actuel(100);
-                fuelTemp.MAJ_fuel_actuel(120);
+                double[] refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
+                energyTemp.MAJ_energy_actuel(refuelStand[1]);
+                fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
                 stand = false;
             }
 

@@ -9,19 +9,22 @@ public class Energy {
     /*** Consommation d'énergie par tour */
     public double energy_conso;
 
-    public Energy(){        // Cas si pas d'énergie dans la catégorie
-        this.energy_actuel = 0;
-        this.energy_conso = 0;
-    }
-
     public Energy(double energy_actuel, double energy_conso){
         this.energy_actuel = energy_actuel;
-        this.energy_conso = energy_conso;
+        if ( this.energy_actuel == 0){
+            this.energy_conso = 0;
+        } else {
+            this.energy_conso = energy_conso;
+        }
     }
 
     public Energy(Energy energy){
         this.energy_actuel = energy.energy_actuel;
-        this.energy_conso = energy.energy_conso;
+        if ( this.energy_actuel == 0){
+            this.energy_conso = 0;
+        } else {
+            this.energy_conso = energy.energy_conso;
+        }
     }
 
     public double getEnergy_actuel(){

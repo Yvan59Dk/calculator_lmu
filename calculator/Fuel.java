@@ -17,6 +17,13 @@ public class Fuel {
         this.fuel_max = fuel_max;
     }
 
+    public Fuel(double fuel_conso, double fuel_max, double fuel_rendement){
+        this.fuel_conso = fuel_conso;
+        this.fuel_rendement = fuel_rendement;
+        this.fuel_max = fuel_max;
+        this.fuel_actuel = calculator_service.fuel_rendement(this);
+    }
+
     public Fuel(Fuel fuel){
         this.fuel_actuel = fuel.fuel_actuel;
         this.fuel_conso = fuel.fuel_conso;
