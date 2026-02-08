@@ -11,7 +11,7 @@ public class Energy {
 
     public Energy(double energy_actuel, double energy_conso){
         this.energy_actuel = energy_actuel;
-        if ( this.energy_actuel == 0){
+        if ( this.energy_actuel == -1){
             this.energy_conso = 0;
         } else {
             this.energy_conso = energy_conso;

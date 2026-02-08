@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import Temps.*;
+import bibliotheque.Donnee;
 import calculator.*;
 
 /**
@@ -108,25 +109,31 @@ public class Central_Service{
         Fuel fuelTemp = new Fuel(fuel);
         Energy energyTemp = new Energy(energy);
         Timer timerTemp = new Timer(timer);
+        double[] refuelStand = new double[2];
         boolean stand = false;
+        boolean timeStand = false;
         int i = 0;
         while(timerTemp.verif()){
 
             if (stand){
-                chrono.diff_temps(new Chrono(1,10,0));
-                double[] refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
+                refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
+                chrono.somme_temps(new Chrono(1,10,0));
                 stand = false;
+                timeStand = true;
+            } else if (timeStand){
+                chrono.diff_temps(new Chrono(1,10,0));
+                timeStand = false;
             }
 
             int tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
 
-            if (fuelTemp.getFuel_actuel() == 0 || energyTemp.getEnergy_actuel() == 0){
+            if (fuelTemp.getFuel_actuel() == 0 || energyTemp.getEnergy_actuel() == -1){
                 stand = true;
-                chrono.somme_temps(new Chrono(1,10,0));
+                
             }
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);

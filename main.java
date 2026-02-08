@@ -1,10 +1,11 @@
 import Temps.*;
+import bibliotheque.Categorie;
 
 public class main {
     public static void main(String[] args) {
-        Chrono ch = new Chrono(3, 8, 2);
+        Chrono ch = new Chrono(2, 5, 200);
         Timer temps = new Timer(6,0,0);
-        Voiture v2 = new Voiture(Categorie.HYP, ch, temps);
+        Voiture v2 = new Voiture(Categorie.LMP2, ch, temps);
         System.out.print(v2);
 
         /*Chrono ch1 = new Chrono(1, 0, 0);
