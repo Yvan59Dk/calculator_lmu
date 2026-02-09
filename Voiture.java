@@ -48,6 +48,16 @@ public class Voiture {
         this.nbTour = Central_Service.calcul_nbTour_théorique(this.chrono, this.tempsRestant);
     }
 
+    public Voiture(Categorie spec, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
+        this.spec = spec;
+        this.fuel = fuel;
+        this.energy = energy;
+
+        this.chrono = chrono;
+        this.tempsRestant = timer;
+        this.nbTour = Central_Service.calcul_nbTour_théorique(this.chrono, this.tempsRestant);
+    }
+
     public String donneeTour(int nbTourActuel){
         double litreGlobalRequis = Central_Service.calcul_litreGlobalRequis(fuel, nbTour);
         ArrayList<Donnee> save = Central_Service.calcul_tour(fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour, litreGlobalRequis);
