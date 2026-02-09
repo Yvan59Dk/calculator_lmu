@@ -13,32 +13,37 @@ public class calculator_service {
         return fuel.fuel_max*fuel.fuel_rendement;
     }
 
-    /**
-     * Fonction calculatoire qui calcul le carburant nécessaire à mettre au stand.
-     * @param litreGlobalRequis : double : le litre total qui va être utilisé durant la course
-     * @param fuel : Variable de classe Fuel
-     * @return le carburant requis.
-     */
-    public static double fuel_stand(double litreGlobalRequis, Fuel fuel){
-        double litreRequis = litreGlobalRequis - fuel.getFuel_actuel();
-        if (litreRequis > fuel_rendement(fuel)){
-            litreRequis = fuel_rendement(fuel);
+    public static double fuel_stand(Chrono chrono, Timer timer, Fuel fuel){
+        Fuel fuelTemp = new Fuel(fuel);
+        Timer timerTemp = new Timer(timer);
+        double fuelStand = 0;
+        while(fuelStand < fuelTemp.getFuel_max() && timerTemp.verif()){
+            fuelStand += fuelTemp.getFuel_conso();
+            timerTemp.diff_Timer_Chrono(timerTemp, chrono);
         }
-        return litreRequis;
+        if (fuelStand > fuel.getFuel_max()){
+            fuelStand = fuel.getFuel_max();
+        }
+        return fuelStand;
     }
 
-    /**
-     * Fonction calculatoire qui calcul l'énergie nécessaire à mettre au stand.
-     * @param energyGlobalRequis : double : l'énergie total qui va être utilisé durant la course
-     * @param energy : Variable de classe Energy
-     * @return l'énergie requis
-     */
-    public static double energy_stand(double energyGlobalRequis, Energy energy){
-        double energyRequis = energyGlobalRequis - energy.getEnergy_actuel();
-        if (energyRequis > ENERGY_MAX){
-            energyRequis = ENERGY_MAX;
+    public static double energy_stand(Chrono chrono, Timer timer, Energy energy){
+        if (energy.getEnergy_conso() != 0){
+            Energy energyTemp = new Energy(energy);
+            Timer timerTemp = new Timer(timer);
+            double energyStand = 0;
+            while(energyStand < ENERGY_MAX && timerTemp.verif()){
+                energyStand += energyTemp.getEnergy_conso();
+                timerTemp.diff_Timer_Chrono(timerTemp, chrono);
+            }
+            if (energyStand > ENERGY_MAX){
+                energyStand = ENERGY_MAX;
+            }   
+            return energyStand;
+        } else {
+            return 100;
         }
-        return energyRequis;
+        
     }
 
     public static Chrono temps_stand(Chrono chrono, double fuelStand, double energyStand){

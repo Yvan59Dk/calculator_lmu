@@ -59,8 +59,7 @@ public class Voiture {
     }
 
     public String donneeTour(int nbTourActuel){
-        double litreGlobalRequis = Central_Service.calcul_litreGlobalRequis(fuel, nbTour);
-        ArrayList<Donnee> save = Central_Service.calcul_tour(fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour, litreGlobalRequis);
+        ArrayList<Donnee> save = Central_Service.calcul_tour(fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour);
         String res = "";
         for(int i = nbTourActuel; i < save.size()-nbTourActuel; i++){
             res += save.get(i);
@@ -69,7 +68,7 @@ public class Voiture {
     }
 
     public String toString(){
-        String res = "| Catégorie : " + spec.getDescription() + "\n"
+        String res = " | Catégorie : " + spec.getDescription() + "\n"
                     + "| Chrono : " + chrono + "\n"
                     + "| Timer : " + tempsRestant + "\n"
                     + "| nbTour : " + nbTour + "\n"
