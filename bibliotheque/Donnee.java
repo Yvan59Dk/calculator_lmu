@@ -42,7 +42,7 @@ public class Donnee {
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
             " | Actuel : " + this.fuel.getFuel_actuel()+ "L " + this.energy.getEnergy_actuel()+ "% "+
-            " | " + this.chrono + " | ";
+            " | " + this.chrono + " | "; 
         if (stand){
             res += "Stand | \n";
         } else {
