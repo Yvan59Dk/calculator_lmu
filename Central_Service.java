@@ -46,10 +46,10 @@ public class Central_Service{
      * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant.
      * @return un tuple de double de taille 2 au format [Carburant à mettre,Energie à mettre] 
      */
-    public static double[] calcul_refuel_stand(double litreGlobalRequis, Energy energy, Fuel fuel){
+    public static double[] calcul_refuel_stand(Chrono chrono, Timer timer, Energy energy, Fuel fuel){
         double[] res = new double[2];
-        res[0] = calculator_service.fuel_stand(litreGlobalRequis, fuel);
-        res[1] = calculator_service.energy_stand(litreGlobalRequis, energy);
+        res[0] = calculator_service.fuel_stand(chrono, timer, fuel);
+        res[1] = calculator_service.energy_stand(chrono, timer, energy);
         return res;
     }
 
@@ -104,7 +104,7 @@ public class Central_Service{
      * @param litreGlobalRequis : double qui est le carburant total requis pour atteindre la ligne d'arrivée.
      * @return une liste d'élément de classe Données.
      */
-    public static ArrayList<Donnee> calcul_tour(Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour, double litreGlobalRequis){
+    public static ArrayList<Donnee> calcul_tour(Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour){
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
         Fuel fuelTemp = new Fuel(fuel);
         Energy energyTemp = new Energy(energy);
@@ -116,12 +116,12 @@ public class Central_Service{
         while(timerTemp.verif()){
 
             if (stand){
-                refuelStand = calcul_refuel_stand(litreGlobalRequis, energyTemp, fuelTemp);
+                refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
                 chrono.somme_temps(new Chrono(1,10,0));
-                stand = false;
                 timeStand = true;
+                stand = false;
             } else if (timeStand){
                 chrono.diff_temps(new Chrono(1,10,0));
                 timeStand = false;
