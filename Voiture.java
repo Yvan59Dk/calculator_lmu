@@ -69,7 +69,7 @@ public class Voiture {
     }
 
     public String toString(){
-        String res = "| Catégorie : " + spec.getDescription() + "\n"
+        String res = " | Catégorie : " + spec.getDescription() + "\n"
                     + "| Chrono : " + chrono + "\n"
                     + "| Timer : " + tempsRestant + "\n"
                     + "| nbTour : " + nbTour + "\n"
