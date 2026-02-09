@@ -9,8 +9,8 @@ public class Energy {
     /*** Consommation d'énergie par tour */
     public double energy_conso;
 
-    public Energy(double energy_actuel, double energy_conso){
-        this.energy_actuel = energy_actuel;
+    public Energy(double energy_conso){
+        this.energy_actuel = ENERGY_MAX;
         if ( this.energy_actuel == -1){
             this.energy_conso = 0;
         } else {

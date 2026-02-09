@@ -131,9 +131,9 @@ public class Central_Service{
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
 
-            if (fuelTemp.getFuel_actuel() == 0 || energyTemp.getEnergy_actuel() == -1){
+            if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= fuelTemp.getFuel_conso() 
+                || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= energyTemp.getEnergy_conso()){
                 stand = true;
-                
             }
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);

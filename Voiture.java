@@ -31,7 +31,7 @@ public class Voiture {
     public Voiture(Categorie spec){
         this.spec = spec;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
-        this.energy = new Energy(this.spec.getEnergy_max(),DEFAULT_ENERGY_CONSO);
+        this.energy = new Energy(DEFAULT_ENERGY_CONSO);
         this.nbTour = 0;
 
         this.chrono = new Chrono(0,0,0);
@@ -41,7 +41,7 @@ public class Voiture {
     public Voiture(Categorie spec, Chrono chrono, Timer timer){
         this.spec = spec;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
-        this.energy = new Energy(this.spec.getEnergy_max(),DEFAULT_ENERGY_CONSO);
+        this.energy = new Energy(DEFAULT_ENERGY_CONSO);
 
         this.chrono = chrono;
         this.tempsRestant = timer;

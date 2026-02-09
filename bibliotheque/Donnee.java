@@ -26,13 +26,14 @@ public class Donnee {
     public String toString(){
         String res = "";
         res =" | Tour " + this.numTour +
+            " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
             " | Actuel : " + this.fuel.getFuel_actuel()+ "L " + this.energy.getEnergy_actuel()+ "% "+
             " | " + this.chrono + " | ";
         if (stand){
-            res += "Stand ! | \n";
+            res += "Stand | \n";
         } else {
-            res += "        | \n";
+            res += "      | \n";
         }
         return res;
     }
