@@ -1,4 +1,9 @@
 package calculator;
+
+/** La classe 'Fuel' est la classe qui correspond au systéme de carburant du véhicule. Elle contient le carburant actuel,
+ * la consommation de carburant, le carburant maximal et le rendement de carburant par rapport à l'énergie.
+ * Elle contient des méthodes permettant de aire évolué ces valeurs en fonction de la course.
+*/
 public class Fuel {
 
     /*** Double : Consommation de carburant par tour */
@@ -45,15 +50,31 @@ public class Fuel {
         this.fuel_actuel = fuel_actuel;
     }
 
+    /**
+     * Renvois la consommation de carburant par tour
+     * @return double : Fuel/t
+     */
     public double getFuel_conso(){
         return fuel_conso;
     }
+    /**
+     * Renvois le carburant disponible
+     * @return carburant disponible
+     */
     public double getFuel_actuel(){
         return fuel_actuel;
     }
+    /**
+     * Renvois la capacité max de carburant
+     * @return capacié max 
+     */
     public double getFuel_max(){
         return fuel_max;
     }
+    /**
+     * Renvois le rendement carburant - energie
+     * @return rendement carburant energie
+     */
     public double getFuel_rendement(){
         return fuel_rendement;
     }
@@ -74,6 +95,9 @@ public class Fuel {
         this.fuel_rendement = fuel_rendement;
     }
 
+    /**
+     * Fait passer un tour de carburant au véhicule.
+     */
     public void evolutionFuel(){
         this.fuel_actuel -= fuel_conso;
         if (this.fuel_actuel < 0){

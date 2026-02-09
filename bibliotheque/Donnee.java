@@ -2,12 +2,21 @@ package bibliotheque;
 import Temps.*;
 import calculator.*;
 
+/** La classe Donnee stocke les données émisent sur un tour et les affiche sous un format rapide 
+ * permettant la lecture rapide et efficace pour faire stratégie ou save.
+ */
 public class Donnee {
+    /** Le numéro de tour */
     public int numTour;
+    /** L'état du fuel durant ce tour */
     public Fuel fuel;
+    /** L'état de l'énergie durant ce tour */
     public Energy energy;
+    /** Le chrono de ce tour */
     public Chrono chrono;
+    /** Le timer à la fin de ce tour */
     public Timer timer;
+    /** Si il faut rentrer au stand durant ce tour */
     public boolean stand = false;
 
     public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand){
@@ -19,6 +28,10 @@ public class Donnee {
         this.stand = stand;
     }
 
+    /**
+     * Retourne si dans ce tour, il faut rentrer au stand.
+     * @return boolean
+     */
     public boolean getStand(){
         return stand;
     }

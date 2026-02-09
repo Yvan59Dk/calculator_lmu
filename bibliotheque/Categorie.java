@@ -1,7 +1,9 @@
 package bibliotheque;
 
 /**
- * Classe Enum "Catégorie" répertoriant les specs de voitures du jeu.
+ * Classe Enum "Catégorie" répertorie les specs de voitures du jeu ainsi que les informations crucial 
+ * des calculs comme le carburant max,le rendement du fuel par rapport à l'énergie 
+ * ou l'énergie max ( surtout pour différencier les LMP et les autres catégorie utilisant l'énergie ).
  */
 public enum Categorie {
     /** La voiture Hypercar contenant les valeurs essentiels */
@@ -19,9 +21,13 @@ public enum Categorie {
     /** La voiture LMGTE contenant les valeurs essentiels */ 
     LMGTE("LMGTE", 99.0, 0.84, 100); 
 
+    /** Le nom de la catégorie */
     private String description;
+    /** Le réservoir de la catégorie */
     private double fuel_max;
+    /** Le rendement de la catégorie */
     private double fuel_rendement;
+    /** L'energie max de la catégorie ( surtout pour différencier les LMP et les autres catégorie utilisant l'énergie ).*/
     private double energy_max;
 
     private Categorie(String desc, double fuel_max, double fuel_rendement, double energy_max){
@@ -32,31 +38,31 @@ public enum Categorie {
     }
 
     /**
-     * Fonction qui renvoit le nom de la spec.
-     * @return le nom de la spec
+     * Renvois le nom de la catégorie
+     * @return String : nom de la catégorie
      */
     public String getDescription(){
         return description;
     }
 
     /**
-     * Fonction qui renvoit le max de carburant dans les voitures de la catégorie
-     * @return : double : le max de carburant
+     * Renvois le carburant maximal du véhicule
+     * @return double : max de carburant
      */
     public double getFuel_max(){
         return fuel_max;
     }
 
     /**
-     * Fonction qui renvoit le rendement par defaut des voitures de la catégorie
-     * @return : double : le rendement par defaut
+     * Renvois le rendement du véhicule
+     * @return double : rendement du véhicule
      */
     public double getFuel_rendement(){
         return fuel_rendement;
     }
 
     /**
-     * Fonction qui renvoit le max d'énergie des voitures de la catégorie
+     * Renvois l'énergie max du véhicule
      * @return 100 ou 0 si la catégorie n'utilise pas d'énergie.
      */
     public double getEnergy_max(){
