@@ -25,7 +25,7 @@ public class Donnee {
 
     public String toString(){
         String res = "";
-        res =" | Tour " + this.numTour +
+        res=" | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
             " | Actuel : " + this.fuel.getFuel_actuel()+ "L " + this.energy.getEnergy_actuel()+ "% "+
