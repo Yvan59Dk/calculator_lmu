@@ -21,7 +21,11 @@ public class Timer extends Temps{
     * {@inheritDoc}
     */
     protected void diff_valeur2(int m){
-        this.valeur2 -= m;
+        if (this.valeur2 == 0){
+            this.diff_valeur3(m*60);
+        } else {
+            this.valeur2 -= m;
+        }
         if (this.valeur2 <= 0){
             if(this.valeur1 != 0){
                 this.valeur2 += 60;

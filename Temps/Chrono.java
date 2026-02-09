@@ -17,7 +17,11 @@ public class Chrono extends Temps{
     }
 
     protected void diff_valeur2(int v2){
-        this.valeur2 -= v2;
+        if (this.valeur2 == 0){
+            this.diff_valeur3(v2*60);;
+        } else {
+            this.valeur2 -= v2;
+        }
         if (this.valeur2 < 0){
             if (this.valeur1 > 0){
                 this.valeur2 += 60;

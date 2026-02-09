@@ -1,15 +1,17 @@
+package bibliotheque;
+
 /**
- * Classe Enum "Catégorie" répertoriant les spacs de voitures du jeu.
+ * Classe Enum "Catégorie" répertoriant les specs de voitures du jeu.
  */
 public enum Categorie {
     /** La voiture Hypercar contenant les valeurs essentiels */
     HYP("Hypercar", 120.0, 0.84, 100), 
 
     /** La voiture LMP2 contenant les valeurs essentiels */
-    LMP2("LMP2", 75.0, 1, 0.0), 
+    LMP2("LMP2", 75.0, 1, -1), 
 
     /** La voiture LMP3 contenant les valeurs essentiels */
-    LMP3("LMP3", 100.0, 1, 0.0), 
+    LMP3("LMP3", 100.0, 1, -1), 
 
     /** La voiture LMGT3 contenant les valeurs essentiels */
     LMGT3("LMGT3", 100.0, 0.84, 100),

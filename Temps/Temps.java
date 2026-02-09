@@ -60,7 +60,11 @@ public class Temps {
      * @param v2 Valeur numéro 2.
      */
     protected void diff_valeur2(int v2){
-        this.valeur2 -= v2;
+        if (this.valeur2 == 0){
+            this.diff_valeur3(v2*60);
+        } else {
+            this.valeur2 -= v2;
+        }
         if (this.valeur2 <= 0){
             if(this.valeur1 != 0){
                 this.valeur2 += 100;
@@ -68,7 +72,6 @@ public class Temps {
             } else {
                 this.valeur2 = 0;
             }
-            
         }
     }
     /**
@@ -77,14 +80,17 @@ public class Temps {
      */
     protected void diff_valeur3(int v3){
         this.valeur3 -= v3;
-        if (this.valeur3 <= 0){
-            if(this.valeur2 != 0){
+        if (this.valeur3 < 0){
+            if (this.valeur2 > 0){
                 this.valeur3 += 100;
                 this.valeur2 -= 1;
+            } else if (this.valeur1 > 0){
+                this.valeur3 += 100;
+                this.valeur2 = 99;
+                this.valeur1 -= 1;
             } else {
                 this.valeur3 = 0;
             }
-            
         }
     }
 
