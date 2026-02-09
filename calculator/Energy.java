@@ -40,8 +40,8 @@ public class Energy {
         return energy_actuel;
     }
     /**
-     * Renvois la consomation d'énergie du véhicule
-     * @return double : la consomation d'énergie.
+     * Renvois la consommation d'énergie du véhicule
+     * @return double : la consommation d'énergie.
      */
     public double getEnergy_conso(){
         return energy_conso;

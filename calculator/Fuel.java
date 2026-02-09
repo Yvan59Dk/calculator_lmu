@@ -50,15 +50,31 @@ public class Fuel {
         this.fuel_actuel = fuel_actuel;
     }
 
+    /**
+     * Renvois la consommation de carburant par tour
+     * @return double : Fuel/t
+     */
     public double getFuel_conso(){
         return fuel_conso;
     }
+    /**
+     * Renvois le carburant disponible
+     * @return carburant disponible
+     */
     public double getFuel_actuel(){
         return fuel_actuel;
     }
+    /**
+     * Renvois la capacité max de carburant
+     * @return capacié max 
+     */
     public double getFuel_max(){
         return fuel_max;
     }
+    /**
+     * Renvois le rendement carburant - energie
+     * @return rendement carburant energie
+     */
     public double getFuel_rendement(){
         return fuel_rendement;
     }
