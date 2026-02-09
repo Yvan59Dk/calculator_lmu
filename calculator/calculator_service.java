@@ -1,6 +1,7 @@
 package calculator;
 import Temps.*;
 
+/** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
 public class calculator_service {
     final static double ENERGY_MAX = 100.0;
 
@@ -41,6 +42,7 @@ public class calculator_service {
         return energyRequis;
     }
 
+    /** @deprecated A finir */
     public static Chrono temps_stand(Chrono chrono, double fuelStand, double energyStand){
         return chrono;
     }

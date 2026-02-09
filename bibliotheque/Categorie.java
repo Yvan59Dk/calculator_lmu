@@ -38,27 +38,31 @@ public enum Categorie {
     }
 
     /**
-     * @return Le nom de la catégorie
+     * Renvois le nom de la catégorie
+     * @return String : nom de la catégorie
      */
     public String getDescription(){
         return description;
     }
 
     /**
-     * @return Le max de carburant de la catégorie
+     * Renvois le carburant maximal du véhicule
+     * @return double : max de carburant
      */
     public double getFuel_max(){
         return fuel_max;
     }
 
     /**
-     * @return Le rendement par defaut de la catégorie
+     * Renvois le rendement du véhicule
+     * @return double : rendement du véhicule
      */
     public double getFuel_rendement(){
         return fuel_rendement;
     }
 
     /**
+     * Renvois l'énergie max du véhicule
      * @return 100 ou 0 si la catégorie n'utilise pas d'énergie.
      */
     public double getEnergy_max(){

@@ -67,15 +67,17 @@ public enum Circuit {
         this.pit = pit;
     }
 
-    /**
-     * @return Description du circuit.
+    /** 
+     * Renvois le nom du circuit.
+     * @return String : Description du circuit.
      */
     public String getDescription(){
         return desc;
     }
 
     /**
-     * @return Temps mis dans la pit lane ( sans compter l'arrêt au stand )
+     * Renvois le temps passer dans la Pitlane ( sans compter l'arrêt au stand )
+     * @return Temps mis dans la Pitlane
      */
     public Chrono getPitLane(){
         return pit;

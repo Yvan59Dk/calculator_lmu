@@ -1,5 +1,9 @@
 package calculator;
 
+/** La classe 'Energy' est une classe qui correspond a la batterie du véhicule. Elle contient l'énergie actuel,
+ * la consommation d'énergie ainsi que d'autres méthodes influançant l'énergie de la voiture permettant l'évolution
+ * des valeurs en fonction de la course.
+ */
 public class Energy {
     // Variable final de l'énergie max
     final public static double ENERGY_MAX = 100.0;
@@ -28,10 +32,17 @@ public class Energy {
             this.energy_conso = energy.energy_conso;
         }
     }
-
+    /**
+     * Renvois l'énergie actuel du véhicule
+     * @return double : l'énergie actuel.
+     */
     public double getEnergy_actuel(){
         return energy_actuel;
     }
+    /**
+     * Renvois la consomation d'énergie du véhicule
+     * @return double : la consomation d'énergie.
+     */
     public double getEnergy_conso(){
         return energy_conso;
     }
@@ -57,6 +68,9 @@ public class Energy {
         this.energy_conso = energy_conso;
     }
 
+    /**
+     * Fait passer un tour d'énergie au véhicule.
+     */
     public void evolutionEnergy(){
         this.energy_actuel -= energy_conso;
         if (this.energy_actuel < 0){
