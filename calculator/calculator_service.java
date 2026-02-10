@@ -4,6 +4,7 @@ import Temps.*;
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
 public class calculator_service {
     final static double ENERGY_MAX = 100.0;
+    final static double STAND_TEMPSENERGIE = 3.125;
 
     /**
      * Fonction calculatoire qui calcule le carburant après l'avoir passer avec le rendement
