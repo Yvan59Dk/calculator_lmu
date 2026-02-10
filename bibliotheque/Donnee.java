@@ -6,6 +6,8 @@ import calculator.*;
  * permettant la lecture rapide et efficace pour faire stratégie ou save.
  */
 public class Donnee {
+    final static int LIMITDIGIT = 2;
+
     /** Le numéro de tour */
     public int numTour;
     /** L'état du fuel durant ce tour */
@@ -36,12 +38,25 @@ public class Donnee {
         return stand;
     }
 
+    /**
+     * @param d
+     * @return
+     */
+    public static String toStringDouble(double d){
+        String[] coco = Double.toString(d/1f).split("\\.");
+        if (coco[1].length() > LIMITDIGIT){
+            return coco[0] + "." + coco[1].substring(0,LIMITDIGIT);
+        } else {
+            return coco[0] + "." + coco[1];
+        }
+    }
+
     public String toString(){
         String res = "";
         res=" | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
-            " | Actuel : " + this.fuel.getFuel_actuel()+ "L " + this.energy.getEnergy_actuel()+ "% "+
+            " | Actuel : " + toStringDouble(this.fuel.getFuel_actuel()) + "L " + toStringDouble(this.energy.getEnergy_actuel())+ "% "+
             " | " + this.chrono + " | "; 
         if (stand){
             res += "Stand | \n";
