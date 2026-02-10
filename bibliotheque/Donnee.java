@@ -11,14 +11,21 @@ public class Donnee {
     public Chrono chrono;
     public Timer timer;
     public boolean stand = false;
+    public double fuelStand;
+    public double energyStand;
 
-    public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand){
+    public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand, double fuelStand, double energyStand){
         this.numTour = numTour;
         this.fuel = fuel;
         this.energy = energy;
         this.chrono = chrono;
         this.timer = timer;
+
         this.stand = stand;
+        if (stand){
+            this.fuelStand = fuelStand;
+            this.energyStand = energyStand;
+        }
     }
 
     public boolean getStand(){
@@ -39,16 +46,15 @@ public class Donnee {
     }
 
     public String toString(){
-        String res = "";
-        res=" | Tour " + this.numTour +
+        String res = " | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
             " | Actuel : " + toStringDouble(this.fuel.getFuel_actuel()) + "L " + toStringDouble(this.energy.getEnergy_actuel())+ "% "+
-            " | " + this.chrono + " | "; 
+            " | " + this.chrono;
         if (stand){
-            res += "Stand | \n";
+            res += " | Stand / Fuel : " + toStringDouble(this.fuelStand) + " / Energy : " + toStringDouble(this.energyStand) + " | \n";
         } else {
-            res += "      | \n";
+            res += " |       | \n";
         }
         return res;
     }
