@@ -113,6 +113,7 @@ public class Central_Service{
         boolean stand = false;
         boolean timeStand = false;
         int i = 0;
+        int tour = nbTourActuel;
         while(timerTemp.verif()){
 
             if (stand){
@@ -120,6 +121,12 @@ public class Central_Service{
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
                 chrono.somme_temps(new Chrono(1,10,0));
+                listeDonnees.add(new Donnee(tour, 
+                             new Fuel(fuelTemp), 
+                             new Energy(energyTemp), 
+                             new Chrono(chrono), 
+                             new Timer(timerTemp), 
+                             stand, refuelStand[0], refuelStand[1]));
                 timeStand = true;
                 stand = false;
             } else if (timeStand){
@@ -127,7 +134,7 @@ public class Central_Service{
                 timeStand = false;
             }
 
-            int tour = nbTourActuel + i;
+            tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
 
@@ -137,7 +144,14 @@ public class Central_Service{
             }
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-            listeDonnees.add(new Donnee(tour, new Fuel(fuelTemp), new Energy(energyTemp), new Chrono(chrono), new Timer(timerTemp), stand));
+            if(!stand){
+                listeDonnees.add(new Donnee(tour, 
+                             new Fuel(fuelTemp), 
+                             new Energy(energyTemp), 
+                             new Chrono(chrono), 
+                             new Timer(timerTemp), 
+                             stand, refuelStand[0], refuelStand[1]));
+            }
             i++;
         }
         return listeDonnees;

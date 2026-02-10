@@ -10,7 +10,7 @@ public class Voiture {
     final static double ENERGY_MAX = 100.0;
 
     // Variable par Défaut
-    final static double DEFAULT_FUEL_CONSO = 3.44;
+    final static double DEFAULT_FUEL_CONSO = 1.78;
     final static double DEFAULT_ENERGY_CONSO = 2.75;
     
     /** Spec de Véhicule : HYP, LMP2, LMP3, LMGT3, LMGTE */

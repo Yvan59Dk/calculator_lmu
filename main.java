@@ -3,8 +3,8 @@ import bibliotheque.Categorie;
 
 public class main {
     public static void main(String[] args) {
-        Chrono ch = new Chrono(2, 5, 200);
-        Timer temps = new Timer(6,0,0);
+        Chrono ch = new Chrono(1, 12, 200);
+        Timer temps = new Timer(4,0,0);
         Voiture v2 = new Voiture(Categorie.LMP2, ch, temps);
         System.out.print(v2);
 
