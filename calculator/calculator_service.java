@@ -1,18 +1,80 @@
 package calculator;
 import Temps.*;
+import bibliotheque.*;
 
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
 public class calculator_service {
     final static double ENERGY_MAX = 100.0;
-    final static double STAND_TEMPSENERGIE = 3.125;
+    final static Chrono STAND_TEMPSFUEL = new Chrono(0,3,125);
+    final static Chrono STAND_TEMPSENERGIE = new Chrono(0,3,125);
 
     /**
-     * Fonction calculatoire qui calcule le carburant après l'avoir passer avec le rendement
+     * Fonction Calculatoire qui calcule le carburant après l'avoir passer avec le rendement
      * @param fuel : Variable de classe Fuel
      * @return double : le carburant.
      */
     public static double fuel_rendement(Fuel fuel){
         return fuel.fuel_max*fuel.fuel_rendement;
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule le total de litre utilisé durant l'entiereté de la course.
+     * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant. 
+     * @param nbTour : int nombre de tour de la course.
+     * @return Le total de litre à utilisé.
+     */
+    public static double calcul_litreGlobalRequis(Fuel fuel, int nbTour){
+        return nbTour*fuel.getFuel_conso();
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule le litre utilisé sur un tour
+     * @param nbTour : int nombre de tour de la course. 
+     * @param litreGlobalRequis : le litrage total de la course
+     * @return la consommation sur un tour
+     */
+    public static double calcul_litreParTour(int nbTour, double litreGlobalRequis){
+        return litreGlobalRequis/nbTour;
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule le total d'énergie utilisé durant l'entiereté de la course.
+     * @param energy : La variable de classe 'Energy' qui contient les données de voitures en rapport avec l'énergie.
+     * @param nbTour : int nombre de tour de la course. 
+     * @return Le total d'énergie à utilisé.
+     */
+    public static double calcul_energyParTour(Energy energy, int nbTour){
+        return nbTour+energy.getEnergy_conso();
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule l'énergie utilisé sur un tour
+     * @param nbTour : int nombre de tour de la course.
+     * @param energyGlobalRequis : l'énergie total sur la course.
+     * @return la consommation sur la tour.
+     */
+    public static double calcul_energyParTour(int nbTour, double energyGlobalRequis){
+        return energyGlobalRequis/nbTour;
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule et renvois le chrono mis au stand 
+     * @param fuelStand
+     * @param energyStand
+     * @return
+     */
+    public static Chrono temps_stand(Circuit circuit, double fuelStand, double energyStand){
+        Chrono tempsFuelStand = STAND_TEMPSFUEL;
+        Chrono tempsEnergyStand = new Chrono();
+        tempsFuelStand.multiChrono(fuelStand);
+        tempsEnergyStand.multiChrono(energyStand);
+        if (tempsFuelStand.getChronoMilli() > tempsEnergyStand.getChronoMilli()){
+            tempsFuelStand.somme_temps(circuit.getPitLane());
+            return tempsFuelStand;
+        } else {
+            tempsEnergyStand.somme_temps(circuit.getPitLane());
+            return tempsEnergyStand;
+        }
     }
 
     /**
@@ -59,11 +121,5 @@ public class calculator_service {
         } else {
             return 100;
         }
-        
-    }
-
-    /** @deprecated A finir */
-    public static Chrono temps_stand(Chrono chrono, double fuelStand, double energyStand){
-        return chrono;
     }
 }

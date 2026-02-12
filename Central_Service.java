@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 import Temps.*;
-import bibliotheque.Donnee;
+import bibliotheque.*;
 import calculator.*;
 
 /**
@@ -54,46 +54,6 @@ public class Central_Service{
     }
 
     /**
-     * Fonction Calculatoire qui calcule le total de litre utilisé durant l'entiereté de la course.
-     * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant. 
-     * @param nbTour : int nombre de tour de la course.
-     * @return Le total de litre à utilisé.
-     */
-    public static double calcul_litreGlobalRequis(Fuel fuel, int nbTour){
-        return nbTour*fuel.getFuel_conso();
-    }
-
-    /**
-     * Fonction Calculatoire qui calcule le litre utilisé sur un tour
-     * @param nbTour : int nombre de tour de la course. 
-     * @param litreGlobalRequis : le litrage total de la course
-     * @return la consommation sur un tour
-     */
-    public static double calcul_litreParTour(int nbTour, double litreGlobalRequis){
-        return litreGlobalRequis/nbTour;
-    }
-
-    /**
-     * Fonction Calculatoire qui calcule le total d'énergie utilisé durant l'entiereté de la course.
-     * @param energy : La variable de classe 'Energy' qui contient les données de voitures en rapport avec l'énergie.
-     * @param nbTour : int nombre de tour de la course. 
-     * @return Le total d'énergie à utilisé.
-     */
-    public static double calcul_energyParTour(Energy energy, int nbTour){
-        return nbTour+energy.getEnergy_conso();
-    }
-
-    /**
-     * Fonction Calculatoire qui calcule l'énergie utilisé sur un tour
-     * @param nbTour : int nombre de tour de la course.
-     * @param energyGlobalRequis : l'énergie total sur la course.
-     * @return la consommation sur la tour.
-     */
-    public static double calcul_energyParTour(int nbTour, double energyGlobalRequis){
-        return energyGlobalRequis/nbTour;
-    }
-
-    /**
      * Fonction Calculatoire qui prédit d'après les statistiques données, les tours durant la course.
      * @param fuel : Variable de classe 'Fuel' qui contient les informations nécessaires du carburant.
      * @param energy : Variable de classe 'Energy' qui contient les informations nécessaires de l'énergie.
@@ -103,15 +63,25 @@ public class Central_Service{
      * @param nbTour : int qui est le nombre de tour total.
      * @param litreGlobalRequis : double qui est le carburant total requis pour atteindre la ligne d'arrivée.
      * @return une liste d'élément de classe Données.
+     * @deprecated A refaire l'ordre, la fonction est chaotique, même Tzeetch est jaloux 
+     * tellement cette fonction lui prend son buzz.
      */
-    public static ArrayList<Donnee> calcul_tour(Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour){
+    public static ArrayList<Donnee> calcul_tour(Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour){
+        // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
+
+        // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
         Fuel fuelTemp = new Fuel(fuel);
         Energy energyTemp = new Energy(energy);
         Timer timerTemp = new Timer(timer);
+        
+        // Variable local.
+        Chrono tempsStand = new Chrono();
         double[] refuelStand = new double[2];
         boolean stand = false;
         boolean timeStand = false;
+
+        // Tour.
         int i = 0;
         int tour = nbTourActuel;
         while(timerTemp.verif()){
@@ -120,17 +90,23 @@ public class Central_Service{
                 refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
-                chrono.somme_temps(new Chrono(1,10,0));
+
+                // Temps dans la voie des stands
+                tempsStand = new Chrono();
+                tempsStand.somme_temps(calculator_service.temps_stand(circuit, refuelStand[0], refuelStand[1]));
+                chrono.somme_temps(tempsStand);
+
                 listeDonnees.add(new Donnee(tour, 
                              new Fuel(fuelTemp), 
                              new Energy(energyTemp), 
                              new Chrono(chrono), 
                              new Timer(timerTemp), 
                              stand, refuelStand[0], refuelStand[1]));
+
                 timeStand = true;
                 stand = false;
             } else if (timeStand){
-                chrono.diff_temps(new Chrono(1,10,0));
+                chrono.diff_temps(tempsStand);
                 timeStand = false;
             }
 

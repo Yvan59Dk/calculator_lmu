@@ -16,6 +16,9 @@ public class Voiture {
     /** Spec de Véhicule : HYP, LMP2, LMP3, LMGT3, LMGTE */
     public Categorie spec;
 
+    /** Circuit oû est la voiture */
+    public Circuit circuit;
+
     // Variable de Fuel
     public Fuel fuel;
 
@@ -28,8 +31,9 @@ public class Voiture {
     public Chrono chrono;
     public Timer tempsRestant;
 
-    public Voiture(Categorie spec){
+    public Voiture(Categorie spec, Circuit circuit){
         this.spec = spec;
+        this.circuit = circuit;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
         this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
         this.nbTour = 0;
@@ -38,8 +42,9 @@ public class Voiture {
         this.tempsRestant = new Timer(0, 0, 0);
     }
 
-    public Voiture(Categorie spec, Chrono chrono, Timer timer){
+    public Voiture(Categorie spec, Circuit circuit, Chrono chrono, Timer timer){
         this.spec = spec;
+        this.circuit = circuit;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
         this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
 
@@ -48,8 +53,9 @@ public class Voiture {
         this.nbTour = Central_Service.calcul_nbTour_théorique(this.chrono, this.tempsRestant);
     }
 
-    public Voiture(Categorie spec, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
+    public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
         this.spec = spec;
+        this.circuit = circuit;
         this.fuel = fuel;
         this.energy = energy;
 
@@ -59,7 +65,7 @@ public class Voiture {
     }
 
     public String donneeTour(int nbTourActuel){
-        ArrayList<Donnee> save = Central_Service.calcul_tour(fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour);
+        ArrayList<Donnee> save = Central_Service.calcul_tour(circuit, fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour);
         String res = "";
         for(int i = nbTourActuel; i < save.size()-nbTourActuel; i++){
             res += save.get(i);

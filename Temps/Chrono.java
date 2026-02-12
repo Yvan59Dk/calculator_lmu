@@ -16,6 +16,10 @@ public class Chrono extends Temps{
         super(chrono);
     }
 
+    public Chrono(){
+        super();
+    }
+
     protected void diff_valeur2(int v2){
         if (this.valeur2 == 0){
             this.diff_valeur3(v2*60);;
@@ -67,6 +71,23 @@ public class Chrono extends Temps{
             this.valeur3 -= 1000;
             this.valeur2 += 1;
         }
+    }
+
+    /**
+     * Renvois le Chrono en une valeur entière de miliseconde.
+     * @return le Chrono en milliseconde.
+     */
+    public int getChronoMilli(){
+        return this.valeur1 * 60000 + this.valeur2 * 1000 + this.valeur3;
+    }
+
+    /**
+     * Fonction Multipliant le chrono par I
+     * @param i : double : le multiplicateur.
+     */
+    public void multiChrono(double i){
+        int res = (int)(getChronoMilli() * i);
+        this.somme_valeur3(res);
     }
     
     @Override

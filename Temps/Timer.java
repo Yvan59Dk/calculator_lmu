@@ -17,6 +17,10 @@ public class Timer extends Temps{
         super(timer);
     }
 
+    public Timer(){
+        super();
+    }
+
     /**
     * {@inheritDoc}
     */
@@ -75,8 +79,20 @@ public class Timer extends Temps{
         }
     }
 
+    /**
+     * Renvois le Timer en une valeur entière de seconde.
+     * @return le Timer en seconde.
+     */
+    public int getTimerSeconde(){
+        return this.valeur1 * 3600 + this.valeur2 * 60 + this.valeur3;
+    }
+
+    /**
+     * Fonction boolean vérifiant si le timer n'a pas atteint 0.
+     * @return TRUE si il n'a pas atteint 0 / FALSE si il a atteint 0.
+     */
     public boolean verif(){
-        int temps_seconde_timer = valeur1* 3600 + valeur2*60 + valeur3;
+        int temps_seconde_timer = this.getTimerSeconde();
         if(temps_seconde_timer > 0){
             return true;
         }

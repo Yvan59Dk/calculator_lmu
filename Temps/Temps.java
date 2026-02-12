@@ -23,6 +23,12 @@ public class Temps {
         this.valeur3 = temps.valeur3;
     }
 
+    public Temps(){
+        this.valeur1 = 0;
+        this.valeur2 = 0;
+        this.valeur3 = 0;
+    }
+
     public int getValeur1(){
         return valeur1;
     }
