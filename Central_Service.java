@@ -77,6 +77,7 @@ public class Central_Service{
         
         // Variable local.
         Chrono tempsStand = new Chrono();
+        double[] refuelStand = {0,0};
         
         boolean stand = false;
         boolean timeStand = false;
@@ -84,9 +85,8 @@ public class Central_Service{
         // Tour.
         int i = 0;
         int tour = nbTourActuel;
+        
         while(timerTemp.verif()){
-
-            double[] refuelStand = {0,0};
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
@@ -117,11 +117,9 @@ public class Central_Service{
                 stand = false;
             }
             if (timeStand){
-                System.out.println(tempsStand);
                 chrono.diff_temps(tempsStand);
                 timeStand = false;
             }
-            System.out.println(chrono);
             i++;
         }
         return listeDonnees;
