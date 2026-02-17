@@ -10,14 +10,23 @@ public class Donnee {
 
     /** Le numéro de tour */
     public int numTour;
-    /** L'état du fuel durant ce tour */
-    public Fuel fuel;
-    /** L'état de l'énergie durant ce tour */
-    public Energy energy;
+
+    /** Le fuel dans le réservoir à la fin du tour */
+    public double fuel_actuel;
+    /** Le fuel consommé durant le tour */
+    public double fuel_conso;
+
+    /** L'énergie dans la voiture à la fin du tour */
+    public double energy_actuel;
+    /** L'énergie consommé durant le tour */
+    public double energy_conso;
+
     /** Le chrono de ce tour */
     public Chrono chrono;
+
     /** Le timer à la fin de ce tour */
     public Timer timer;
+
     /** Si il faut rentrer au stand durant ce tour */
     public boolean stand = false;
     public double fuelStand;
@@ -25,10 +34,12 @@ public class Donnee {
 
     public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand, double fuelStand, double energyStand){
         this.numTour = numTour;
-        this.fuel = fuel;
-        this.energy = energy;
-        this.chrono = chrono;
-        this.timer = timer;
+        this.fuel_actuel = fuel.getFuel_actuel();
+        this.fuel_conso = fuel.getFuel_conso();
+        this.energy_actuel = energy.getEnergy_actuel();
+        this.energy_conso = energy.getEnergy_conso();
+        this.chrono = new Chrono(chrono);
+        this.timer = new Timer(timer);
 
         this.stand = stand;
         if (stand || fuelStand != 0 || energyStand != 0){
@@ -61,13 +72,13 @@ public class Donnee {
     public String toString(){
         String res = " | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
-            " | Conso : " + this.fuel.getFuel_conso()+ "L " + this.energy.getEnergy_conso()+ "% " +
-            " | Actuel : " + toStringDouble(this.fuel.getFuel_actuel()) + "L " + toStringDouble(this.energy.getEnergy_actuel())+ "% "+
+            " | Conso : " + this.fuel_conso + "L " + this.energy_conso + "% " +
+            " | Actuel : " + toStringDouble(this.fuel_actuel) + "L " + toStringDouble(this.energy_actuel)+ "% "+
             " | " + this.chrono;
         if (stand){
             res += " | Stand / Fuel : " + toStringDouble(this.fuelStand) + " / Energy : " + toStringDouble(this.energyStand) + " | \n";
         } else {
-            res += " |       | \n";
+            res += " | R.A.S | \n";
         }
         return res;
     }

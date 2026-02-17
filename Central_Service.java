@@ -61,10 +61,7 @@ public class Central_Service{
      * @param timer : Variable de classe 'Timer' qui contient le timer restant de la course.
      * @param nbTourActuel : int qui est le nombre de tour fait.
      * @param nbTour : int qui est le nombre de tour total.
-     * @param litreGlobalRequis : double qui est le carburant total requis pour atteindre la ligne d'arrivée.
      * @return une liste d'élément de classe Données.
-     * @deprecated A refaire l'ordre, la fonction est chaotique, même Tzeetch est jaloux 
-     * tellement cette fonction lui prend son buzz.
      */
     public static ArrayList<Donnee> calcul_tour(Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour){
         // L'arraylist qui va contenir les tours.
@@ -85,7 +82,7 @@ public class Central_Service{
         // Tour.
         int i = 0;
         int tour = nbTourActuel;
-        
+
         while(timerTemp.verif()){
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
@@ -106,12 +103,15 @@ public class Central_Service{
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
 
-            listeDonnees.add(new Donnee(tour, 
-                        new Fuel(fuelTemp), 
-                        new Energy(energyTemp), 
-                        new Chrono(chrono), 
-                        new Timer(timerTemp), 
-                        stand, refuelStand[0], refuelStand[1]));
+            listeDonnees.add(new Donnee(
+                        tour,               // Le numéro du tour
+                        fuelTemp,           // L'état du fuel
+                        energyTemp,         // L'état de l'énergie
+                        chrono,             // Le chrono du tour en question
+                        timerTemp,          // Le timer restant de la course
+                        stand,              // Si il faut rentrez au stand
+                        refuelStand[0],     // Fuel à remettre au stand
+                        refuelStand[1]));   // Energie à mettre au stand
 
             if (stand){
                 stand = false;
