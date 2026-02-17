@@ -77,7 +77,7 @@ public class Central_Service{
         
         // Variable local.
         Chrono tempsStand = new Chrono();
-        double[] refuelStand = new double[2];
+        
         boolean stand = false;
         boolean timeStand = false;
 
@@ -86,48 +86,42 @@ public class Central_Service{
         int tour = nbTourActuel;
         while(timerTemp.verif()){
 
-            if (stand){
-                refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
-                energyTemp.MAJ_energy_actuel(refuelStand[1]);
-                fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
-
-                // Temps dans la voie des stands
-                tempsStand = new Chrono();
-                tempsStand.somme_temps(calculator_service.temps_stand(circuit, refuelStand[0], refuelStand[1]));
-                chrono.somme_temps(tempsStand);
-
-                listeDonnees.add(new Donnee(tour, 
-                             new Fuel(fuelTemp), 
-                             new Energy(energyTemp), 
-                             new Chrono(chrono), 
-                             new Timer(timerTemp), 
-                             stand, refuelStand[0], refuelStand[1]));
-
-                timeStand = true;
-                stand = false;
-            } else if (timeStand){
-                chrono.diff_temps(tempsStand);
-                timeStand = false;
-            }
-
+            double[] refuelStand = {0,0};
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
 
             if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= fuelTemp.getFuel_conso() 
                 || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= energyTemp.getEnergy_conso()){
+                refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
+                energyTemp.MAJ_energy_actuel(refuelStand[1]);
+                fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
+
+                // Temps dans la voie des stands
+                tempsStand = new Chrono(calculator_service.temps_stand(circuit, refuelStand[0], refuelStand[1]));
+                chrono.somme_temps(tempsStand);
+                timeStand = true;
                 stand = true;
             }
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-            if(!stand){
-                listeDonnees.add(new Donnee(tour, 
-                             new Fuel(fuelTemp), 
-                             new Energy(energyTemp), 
-                             new Chrono(chrono), 
-                             new Timer(timerTemp), 
-                             stand, refuelStand[0], refuelStand[1]));
+
+            listeDonnees.add(new Donnee(tour, 
+                        new Fuel(fuelTemp), 
+                        new Energy(energyTemp), 
+                        new Chrono(chrono), 
+                        new Timer(timerTemp), 
+                        stand, refuelStand[0], refuelStand[1]));
+
+            if (stand){
+                stand = false;
             }
+            if (timeStand){
+                System.out.println(tempsStand);
+                chrono.diff_temps(tempsStand);
+                timeStand = false;
+            }
+            System.out.println(chrono);
             i++;
         }
         return listeDonnees;

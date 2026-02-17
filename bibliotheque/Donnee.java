@@ -31,7 +31,7 @@ public class Donnee {
         this.timer = timer;
 
         this.stand = stand;
-        if (stand){
+        if (stand || fuelStand != 0 || energyStand != 0){
             this.fuelStand = fuelStand;
             this.energyStand = energyStand;
         }

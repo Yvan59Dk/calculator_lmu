@@ -64,8 +64,8 @@ public class calculator_service {
      * @return
      */
     public static Chrono temps_stand(Circuit circuit, double fuelStand, double energyStand){
-        Chrono tempsFuelStand = STAND_TEMPSFUEL;
-        Chrono tempsEnergyStand = new Chrono();
+        Chrono tempsFuelStand = new Chrono(STAND_TEMPSFUEL);
+        Chrono tempsEnergyStand = new Chrono(STAND_TEMPSENERGIE);
         tempsFuelStand.multiChrono(fuelStand);
         tempsEnergyStand.multiChrono(energyStand);
         if (tempsFuelStand.getChronoMilli() > tempsEnergyStand.getChronoMilli()){
