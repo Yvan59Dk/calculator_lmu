@@ -3,7 +3,7 @@ import Temps.*;
 import bibliotheque.*;
 
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
-public class calculator_service {
+public class Calculator_Service {
     final static double ENERGY_MAX = 100.0;
     final static Chrono STAND_TEMPSFUEL = new Chrono(0,3,125);
     final static Chrono STAND_TEMPSENERGIE = new Chrono(0,3,125);
@@ -14,7 +14,7 @@ public class calculator_service {
      * @return double : le carburant.
      */
     public static double fuel_rendement(Fuel fuel){
-        return fuel.fuel_max*fuel.fuel_rendement;
+        return fuel.getFuel_max()*fuel.getFuel_rendement();
     }
 
     /**
@@ -59,11 +59,11 @@ public class calculator_service {
 
     /**
      * Fonction Calculatoire qui calcule et renvois le chrono mis au stand 
-     * @param fuelStand
-     * @param energyStand
-     * @return
+     * @param fuelStand : le carburant mis au stand
+     * @param energyStand: l'énergie mis au stand
+     * @return Chrono du ravitaillement
      */
-    public static Chrono temps_stand(Circuit circuit, double fuelStand, double energyStand){
+    public static Chrono temps_ravitaillement(Circuit circuit, double fuelStand, double energyStand){
         Chrono tempsFuelStand = new Chrono(STAND_TEMPSFUEL);
         Chrono tempsEnergyStand = new Chrono(STAND_TEMPSENERGIE);
         tempsFuelStand.multiChrono(fuelStand);

@@ -9,9 +9,9 @@ public class Energy {
     final public static double ENERGY_MAX = 100.0;
 
     /*** Energie dispo dans la voiture */
-    public double energy_actuel;
+    private double energy_actuel;
     /*** Consommation d'énergie par tour */
-    public double energy_conso;
+    private double energy_conso;
 
     public Energy(double energy_actuel, double energy_conso){
         this.energy_actuel = energy_actuel;

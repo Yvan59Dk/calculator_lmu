@@ -9,8 +9,11 @@ public enum Categorie {
     /** La voiture Hypercar contenant les valeurs essentiels */
     HYP("Hypercar", 120.0, 0.84, 100), 
 
-    /** La voiture LMP2 contenant les valeurs essentiels */
-    LMP2("LMP2", 75.0, 1, -1), 
+    /** La voiture LMP2 ELMS contenant les valeurs essentiels */
+    LMP2_ELMS("LMP2 Spec ELMS", 75.0, 1, -1), 
+
+    /** La voiture LMP2 WEC contenant les valeurs essentiels */
+    LMP2_WEC("LMP2 Spec WEC", 67.0, 1, -1), 
 
     /** La voiture LMP3 contenant les valeurs essentiels */
     LMP3("LMP3", 100.0, 1, -1), 

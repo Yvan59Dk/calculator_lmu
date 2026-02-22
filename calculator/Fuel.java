@@ -7,13 +7,13 @@ package calculator;
 public class Fuel {
 
     /*** Double : Consommation de carburant par tour */
-    public double fuel_conso;
+    private double fuel_conso;
     /*** Double : Carburant dans la voiture */
-    public double fuel_actuel;
+    private double fuel_actuel;
     /*** Double : Capacité de carburant max du véhicule */
-    public double fuel_max;
+    private double fuel_max;
     /*** Double : Rendement Carburant/Energy */
-    public double fuel_rendement;
+    private double fuel_rendement;
 
     public Fuel(double fuel_actuel, double fuel_conso, double fuel_max, double fuel_rendement){
         this.fuel_actuel = fuel_actuel;
@@ -26,7 +26,7 @@ public class Fuel {
         this.fuel_conso = fuel_conso;
         this.fuel_rendement = fuel_rendement;
         this.fuel_max = fuel_max;
-        this.fuel_actuel = calculator_service.fuel_rendement(this);
+        this.fuel_actuel = Calculator_Service.fuel_rendement(this);
     }
 
     public Fuel(Fuel fuel){

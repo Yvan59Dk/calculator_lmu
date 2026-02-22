@@ -48,8 +48,8 @@ public class Central_Service{
      */
     public static double[] calcul_refuel_stand(Chrono chrono, Timer timer, Energy energy, Fuel fuel){
         double[] res = new double[2];
-        res[0] = calculator_service.fuel_stand(chrono, timer, fuel);
-        res[1] = calculator_service.energy_stand(chrono, timer, energy);
+        res[0] = Calculator_Service.fuel_stand(chrono, timer, fuel);
+        res[1] = Calculator_Service.energy_stand(chrono, timer, energy);
         return res;
     }
 
@@ -95,7 +95,7 @@ public class Central_Service{
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
 
                 // Temps dans la voie des stands
-                tempsStand = new Chrono(calculator_service.temps_stand(circuit, refuelStand[0], refuelStand[1]));
+                tempsStand = new Chrono(Calculator_Service.temps_ravitaillement(circuit, refuelStand[0], refuelStand[1]));
                 chrono.somme_temps(tempsStand);
                 timeStand = true;
                 stand = true;

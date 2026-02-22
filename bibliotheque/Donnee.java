@@ -6,31 +6,31 @@ import calculator.*;
  * permettant la lecture rapide et efficace pour faire stratégie ou save.
  */
 public class Donnee {
-    final static int LIMITDIGIT = 2;
+    
 
     /** Le numéro de tour */
-    public int numTour;
+    private int numTour;
 
     /** Le fuel dans le réservoir à la fin du tour */
-    public double fuel_actuel;
+    private double fuel_actuel;
     /** Le fuel consommé durant le tour */
-    public double fuel_conso;
+    private double fuel_conso;
 
     /** L'énergie dans la voiture à la fin du tour */
-    public double energy_actuel;
+    private double energy_actuel;
     /** L'énergie consommé durant le tour */
-    public double energy_conso;
+    private double energy_conso;
 
     /** Le chrono de ce tour */
-    public Chrono chrono;
+    private Chrono chrono;
 
     /** Le timer à la fin de ce tour */
-    public Timer timer;
+    private Timer timer;
 
     /** Si il faut rentrer au stand durant ce tour */
-    public boolean stand = false;
-    public double fuelStand;
-    public double energyStand;
+    private boolean stand = false;
+    private double fuelStand;
+    private double energyStand;
 
     public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand, double fuelStand, double energyStand){
         this.numTour = numTour;
@@ -48,24 +48,65 @@ public class Donnee {
         }
     }
 
+    public int getTour(){
+        return this.numTour;
+    }
+
+    public double getFuel_actuel(){
+        return this.fuel_actuel;
+    }
+
+    public double getFuel_conso(){
+        return this.fuel_conso;
+    }
+
+    public double getEnergy_actuel(){
+        return this.energy_actuel;
+    }
+
+    public double getEnergy_conso(){
+        return this.energy_conso;
+    }
+
+    public Chrono getChrono(){
+        return this.chrono;
+    }
+
+    public Timer getTimer(){
+        return this.timer;
+    }
+
     /**
      * Retourne si dans ce tour, il faut rentrer au stand.
      * @return boolean
      */
     public boolean getStand(){
-        return stand;
+        return this.stand;
     }
 
     /**
-     * @param d
-     * @return
+     * Fonction retournant le carburant remis au stand
+     * @throws IllegalAccessError si il n'y a pas eu de d'arrêt durant ce tour.
+     * @return : double : le carburant remis au stand
      */
-    public static String toStringDouble(double d){
-        String[] coco = Double.toString(d/1f).split("\\.");
-        if (coco[1].length() > LIMITDIGIT){
-            return coco[0] + "." + coco[1].substring(0,LIMITDIGIT);
+    public double getFuelStand(){
+        if(stand){
+            return this.fuelStand;
         } else {
-            return coco[0] + "." + coco[1];
+            throw new IllegalAccessError("Accés non autorisé à fuelStand : pas d'arrêt au stand au tour " + this.numTour);
+        }
+    }
+
+    /**
+     * Fonction retournant l'énergie remis au stand
+     * @throws IllegalAccessError si il n'y a pas eu de d'arrêt durant ce tour.
+     * @return : double : l'énergie remis au stand
+     */
+    public double getEnergyStand(){
+        if(stand){
+            return this.energyStand;
+        } else {
+            throw new IllegalAccessError("Accés non autorisé à energyStand : pas d'arrêt au stand au tour " + this.numTour);
         }
     }
 
@@ -73,10 +114,10 @@ public class Donnee {
         String res = " | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel_conso + "L " + this.energy_conso + "% " +
-            " | Actuel : " + toStringDouble(this.fuel_actuel) + "L " + toStringDouble(this.energy_actuel)+ "% "+
+            " | Actuel : " + Convert.toStringDouble(this.fuel_actuel) + "L " + Convert.toStringDouble(this.energy_actuel)+ "% "+
             " | " + this.chrono;
         if (stand){
-            res += " | Stand / Fuel : " + toStringDouble(this.fuelStand) + " / Energy : " + toStringDouble(this.energyStand) + " | \n";
+            res += " | Stand / Fuel : " + Convert.toStringDouble(this.fuelStand) + " / Energy : " + Convert.toStringDouble(this.energyStand) + " | \n";
         } else {
             res += " | R.A.S | \n";
         }
