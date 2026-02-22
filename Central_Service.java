@@ -63,7 +63,7 @@ public class Central_Service{
      * @param nbTour : int qui est le nombre de tour total.
      * @return une liste d'élément de classe Données.
      */
-    public static ArrayList<Donnee> calcul_tour(Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel, int nbTour){
+    public static ArrayList<Donnee> calcul_tour(Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel){
         // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
 
@@ -101,8 +101,6 @@ public class Central_Service{
                 stand = true;
             }
 
-            timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-
             listeDonnees.add(new Donnee(
                         tour,               // Le numéro du tour
                         fuelTemp,           // L'état du fuel
@@ -120,6 +118,9 @@ public class Central_Service{
                 chrono.diff_temps(tempsStand);
                 timeStand = false;
             }
+
+            timerTemp.diff_Timer_Chrono(timerTemp, chrono);
+
             i++;
         }
         return listeDonnees;

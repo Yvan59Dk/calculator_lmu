@@ -1,19 +1,22 @@
 import Temps.*;
 import bibliotheque.Categorie;
 import bibliotheque.Circuit;
+import calculator.Energy;
+import calculator.Fuel;
 
 public class main {
     public static void main(String[] args) {
-        Chrono ch = new Chrono(1, 12, 200);
-        Timer temps = new Timer(8,0,0);
-        Voiture v2 = new Voiture(Categorie.LMP2_ELMS, Circuit.BAHREIN, ch, temps);
-        System.out.print(v2);
+        Categorie spec = Categorie.LMP2_WEC;
+        Circuit circuit = Circuit.LEMANS;
+        
+        Fuel fuel = new Fuel(3.17, spec.getFuel_max(), 0);
+        Energy energy = new Energy(0, 0);
+        Chrono chrono = new Chrono(3, 32, 200);
+        Timer temps = new Timer(12,0,0);
 
-        /*Chrono ch1 = new Chrono(1, 0, 0);
-        Timer temps1 = new Timer(24,00,00);
-        Voiture v1 = new Voiture(Categorie.LMP2, ch1, temps1);
-        System.out.print(v1);*/
+        Voiture voiture = new Voiture(spec, circuit, fuel, energy, chrono, temps);
+        System.out.print(voiture);
 
-        System.out.print(v2.donneeTour(0));
+        System.out.print(voiture.donneeTour(0));
     }
 }

@@ -26,21 +26,23 @@ public class Voiture {
     public Energy energy;
 
     public int nbTour;
+    public ArrayList<Donnee> donneesTour;
     public double[] save;
 
     public Chrono chrono;
     public Timer tempsRestant;
 
-    public Voiture(Categorie spec, Circuit circuit){
+    /*public Voiture(Categorie spec, Circuit circuit){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
         this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
-        this.nbTour = 0;
+        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
+        this.nbTour = donneesTour.size();
 
         this.chrono = new Chrono(0,0,0);
         this.tempsRestant = new Timer(0, 0, 0);
-    }
+    }*/
 
     public Voiture(Categorie spec, Circuit circuit, Chrono chrono, Timer timer){
         this.spec = spec;
@@ -50,7 +52,9 @@ public class Voiture {
 
         this.chrono = chrono;
         this.tempsRestant = timer;
-        this.nbTour = Central_Service.calcul_nbTour_théorique(this.chrono, this.tempsRestant);
+
+        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
+        this.nbTour = donneesTour.size();
     }
 
     public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
@@ -61,14 +65,22 @@ public class Voiture {
 
         this.chrono = chrono;
         this.tempsRestant = timer;
-        this.nbTour = Central_Service.calcul_nbTour_théorique(this.chrono, this.tempsRestant);
+
+        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
+        this.nbTour = donneesTour.size();
+    }
+
+    public void modifFuel(Fuel fuel){
+        this.fuel = fuel;
+    }
+    public void modifFuelConso(double fuel_conso){
+        fuel.MAJ_fuel_conso(fuel_conso);
     }
 
     public String donneeTour(int nbTourActuel){
-        ArrayList<Donnee> save = Central_Service.calcul_tour(circuit, fuel, energy, chrono, tempsRestant, nbTourActuel, nbTour);
         String res = "";
-        for(int i = nbTourActuel; i < save.size()-nbTourActuel; i++){
-            res += save.get(i);
+        for(int i = nbTourActuel; i < donneesTour.size()-nbTourActuel; i++){
+            res += donneesTour.get(i);
         }
         return res;
     }
