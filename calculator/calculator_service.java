@@ -3,7 +3,7 @@ import Temps.*;
 import bibliotheque.*;
 
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
-public class Calculator_Service {
+public class calculator_service {
     final static double ENERGY_MAX = 100.0;
     final static Chrono STAND_TEMPSFUEL = new Chrono(0,3,125);
     final static Chrono STAND_TEMPSENERGIE = new Chrono(0,3,125);
