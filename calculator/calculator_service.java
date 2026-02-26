@@ -88,12 +88,12 @@ public class Calculator_Service {
         Fuel fuelTemp = new Fuel(fuel);
         Timer timerTemp = new Timer(timer);
         double fuelStand = 0;
-        while(fuelStand < fuelTemp.getFuel_max() && timerTemp.verif()){
+        while(fuelStand < fuel_rendement(fuelTemp) && timerTemp.verif()){
             fuelStand += fuelTemp.getFuel_conso();
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
         }
-        if (fuelStand > fuel.getFuel_max()){
-            fuelStand = fuel.getFuel_max();
+        if (fuelStand > fuel_rendement(fuelTemp)){
+            fuelStand = fuel_rendement(fuelTemp);
         }
         return fuelStand;
     }
