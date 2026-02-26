@@ -88,8 +88,8 @@ public class Central_Service{
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
 
-            if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= fuelTemp.getFuel_conso() 
-                || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= energyTemp.getEnergy_conso()){
+            if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= 0 
+                || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= 0){
                 refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
