@@ -17,6 +17,6 @@ public class main {
         Voiture voiture = new Voiture(spec, circuit, fuel, energy, chrono, temps);
         System.out.print(voiture);
 
-        System.out.print(voiture.donneeTour(0));
+        voiture.donneeTourIntervalle(45, 71);
     }
 }

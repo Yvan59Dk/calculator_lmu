@@ -81,13 +81,22 @@ public class Chrono extends Temps{
         return this.valeur1 * 60000 + this.valeur2 * 1000 + this.valeur3;
     }
 
+    protected void addMilli(int milli){
+        int minute = milli / 60000;
+        this.somme_valeur1(minute);
+        int seconde = (milli - minute*60000)/1000;
+        this.somme_valeur2(seconde);
+        int milliseconde = milli - minute*60000 - seconde*1000;
+        this.somme_valeur3(milliseconde);
+    }
+
     /**
      * Fonction Multipliant le chrono par I
      * @param i : double : le multiplicateur.
      */
     public void multiChrono(double i){
-        int res = (int)(getChronoMilli() * i);
-        this.somme_valeur3(res);
+        int res = (int)(getChronoMilli() * i) - getChronoMilli();
+        this.addMilli(res);
     }
     
     @Override

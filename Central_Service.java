@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import Temps.*;
 import bibliotheque.*;
@@ -8,6 +10,7 @@ import calculator.*;
  * Classe qui englobe de manière général les méthodes à utilisé dans le code.
  */
 public class Central_Service{
+
     /**
      * Fonction Calculatoire qui calcul le nombre de tour à faire durant la course.
      * @param chrono : La variable de classe 'Chrono' qui contient le chrono de référence.
@@ -63,7 +66,7 @@ public class Central_Service{
      * @param nbTour : int qui est le nombre de tour total.
      * @return une liste d'élément de classe Données.
      */
-    public static ArrayList<Donnee> calcul_tour(Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel){
+    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel){
         // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
 
@@ -95,7 +98,7 @@ public class Central_Service{
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
 
                 // Temps dans la voie des stands
-                tempsStand = new Chrono(Calculator_Service.temps_ravitaillement(circuit, refuelStand[0], refuelStand[1]));
+                tempsStand = new Chrono(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));
                 chrono.somme_temps(tempsStand);
                 timeStand = true;
                 stand = true;
@@ -120,10 +123,10 @@ public class Central_Service{
             }
 
             timerTemp.diff_Timer_Chrono(timerTemp, chrono);
-
             i++;
         }
-        return listeDonnees;
+        List<Donnee> res = Collections.unmodifiableList(listeDonnees);
+        return res;
     }
 
     /**

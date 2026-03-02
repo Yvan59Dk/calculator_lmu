@@ -7,7 +7,6 @@ import calculator.*;
  */
 public class Donnee {
     
-
     /** Le numéro de tour */
     private int numTour;
 
@@ -114,10 +113,10 @@ public class Donnee {
         String res = " | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel_conso + "L " + this.energy_conso + "% " +
-            " | Actuel : " + Convert.toStringDouble(this.fuel_actuel) + "L " + Convert.toStringDouble(this.energy_actuel)+ "% "+
+            " | Actuel : " + Convert_Service.toStringDouble(this.fuel_actuel) + "L " + Convert_Service.toStringDouble(this.energy_actuel)+ "% "+
             " | " + this.chrono;
         if (stand){
-            res += " | Stand / Fuel : " + Convert.toStringDouble(this.fuelStand) + " / Energy : " + Convert.toStringDouble(this.energyStand) + " | \n";
+            res += " | Stand / Fuel : " + Convert_Service.toStringDouble(this.fuelStand) + " / Energy : " + Convert_Service.toStringDouble(this.energyStand) + " | \n";
         } else {
             res += " | R.A.S | \n";
         }

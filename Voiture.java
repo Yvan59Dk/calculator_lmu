@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import Temps.*;
 import bibliotheque.*;
@@ -26,23 +27,11 @@ public class Voiture {
     public Energy energy;
 
     public int nbTour;
-    public ArrayList<Donnee> donneesTour;
+    public List<Donnee> donneesTour;
     public double[] save;
 
     public Chrono chrono;
     public Timer tempsRestant;
-
-    /*public Voiture(Categorie spec, Circuit circuit){
-        this.spec = spec;
-        this.circuit = circuit;
-        this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
-        this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
-        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
-        this.nbTour = donneesTour.size();
-
-        this.chrono = new Chrono(0,0,0);
-        this.tempsRestant = new Timer(0, 0, 0);
-    }*/
 
     public Voiture(Categorie spec, Circuit circuit, Chrono chrono, Timer timer){
         this.spec = spec;
@@ -53,7 +42,7 @@ public class Voiture {
         this.chrono = chrono;
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
         this.nbTour = donneesTour.size();
     }
 
@@ -66,7 +55,7 @@ public class Voiture {
         this.chrono = chrono;
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(circuit, fuel, energy, chrono, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
         this.nbTour = donneesTour.size();
     }
 
@@ -77,12 +66,20 @@ public class Voiture {
         fuel.MAJ_fuel_conso(fuel_conso);
     }
 
-    public String donneeTour(int nbTourActuel){
-        String res = "";
-        for(int i = nbTourActuel; i < donneesTour.size()-nbTourActuel; i++){
-            res += donneesTour.get(i);
+    public void donneeTour(){
+        for(Iterator<Donnee> it = donneesTour.iterator(); it.hasNext();){
+            System.out.print(it.next());
         }
-        return res;
+    }
+
+    public void donneeTourIntervalle(int debut, int fin){
+        if (debut < 0 || donneesTour.size() < debut || fin < 0 || donneesTour.size() < fin ){
+            throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
+        } else {
+            for(int i = debut; i <= fin; i++){
+                System.out.print(donneesTour.get(i));
+            }
+        }
     }
 
     public String toString(){

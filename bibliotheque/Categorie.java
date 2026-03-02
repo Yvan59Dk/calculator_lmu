@@ -1,5 +1,7 @@
 package bibliotheque;
 
+import Temps.Chrono;
+
 /**
  * Classe Enum "Catégorie" répertorie les specs de voitures du jeu ainsi que les informations crucial 
  * des calculs comme le carburant max,le rendement du fuel par rapport à l'énergie 
@@ -7,22 +9,22 @@ package bibliotheque;
  */
 public enum Categorie {
     /** La voiture Hypercar contenant les valeurs essentiels */
-    HYP("Hypercar", 120.0, 0.84, 100), 
+    HYP("Hypercar", 120.0, 0.84, 100, new Chrono(0,0,425), new Chrono(0,0,425)), 
 
     /** La voiture LMP2 ELMS contenant les valeurs essentiels */
-    LMP2_ELMS("LMP2 Spec ELMS", 75.0, 1, -1), 
+    LMP2_ELMS("LMP2 Spec ELMS", 75.0, 1, -1, new Chrono(0,0,425), new Chrono(0,0,425) ), 
 
     /** La voiture LMP2 WEC contenant les valeurs essentiels */
-    LMP2_WEC("LMP2 Spec WEC", 67.0, 1, -1), 
+    LMP2_WEC("LMP2 Spec WEC", 67.0, 1, -1, new Chrono(0,0,425), new Chrono(0,0,425)), 
 
     /** La voiture LMP3 contenant les valeurs essentiels */
-    LMP3("LMP3", 100.0, 1, -1), 
+    LMP3("LMP3", 100.0, 1, -1, new Chrono(0,0,425), new Chrono(0,0,425)), 
 
     /** La voiture LMGT3 contenant les valeurs essentiels */
-    LMGT3("LMGT3", 100.0, 0.84, 100),
+    LMGT3("LMGT3", 100.0, 0.84, 100, new Chrono(0,0,425), new Chrono(0,0,425)),
 
     /** La voiture LMGTE contenant les valeurs essentiels */ 
-    LMGTE("LMGTE", 99.0, 0.84, 100); 
+    LMGTE("LMGTE", 99.0, 0.84, 100, new Chrono(0,0,425), new Chrono(0,0,425)); 
 
     /** Le nom de la catégorie */
     private String description;
@@ -32,12 +34,18 @@ public enum Categorie {
     private double fuel_rendement;
     /** L'energie max de la catégorie ( surtout pour différencier les LMP et les autres catégorie utilisant l'énergie ).*/
     private double energy_max;
+    /** Temps pour mettre 1% d'énergie dans la voiture */
+    private Chrono ratioTempsEnergy;
+    /** Temps pour mettre 1L dans la voiture */
+    private Chrono ratioTempsFuel;
 
-    private Categorie(String desc, double fuel_max, double fuel_rendement, double energy_max){
+    private Categorie(String desc, double fuel_max, double fuel_rendement, double energy_max, Chrono ratioTempsFuel, Chrono ratioTempsEnergy){
         this.description = desc;
         this.fuel_max = fuel_max;
         this.fuel_rendement = fuel_rendement;
         this.energy_max = energy_max;
+        this.ratioTempsFuel = ratioTempsFuel;
+        this.ratioTempsEnergy = ratioTempsEnergy;
     }
 
     /**
@@ -70,5 +78,21 @@ public enum Categorie {
      */
     public double getEnergy_max(){
         return energy_max;
+    }
+
+    /**
+     * Renvois le temps pour mettre 1L de carburant dans la voiture
+     * @return le ratio temps/carburant.
+     */
+    public Chrono getRatioFuel(){
+        return ratioTempsFuel;
+    }
+
+    /**
+     * Renvois le temps pour mettre 1% d'énergie dans la voiture
+     * @return le ratio temps/énergie.
+     */
+    public Chrono getRatioEnergy(){
+        return ratioTempsEnergy;
     }
 }

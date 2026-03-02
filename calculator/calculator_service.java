@@ -5,8 +5,6 @@ import bibliotheque.*;
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
 public class Calculator_Service {
     final static double ENERGY_MAX = 100.0;
-    final static Chrono STAND_TEMPSFUEL = new Chrono(0,3,125);
-    final static Chrono STAND_TEMPSENERGIE = new Chrono(0,3,125);
 
     /**
      * Fonction Calculatoire qui calcule le carburant après l'avoir passer avec le rendement
@@ -63,9 +61,9 @@ public class Calculator_Service {
      * @param energyStand: l'énergie mis au stand
      * @return Chrono du ravitaillement
      */
-    public static Chrono temps_ravitaillement(Circuit circuit, double fuelStand, double energyStand){
-        Chrono tempsFuelStand = new Chrono(STAND_TEMPSFUEL);
-        Chrono tempsEnergyStand = new Chrono(STAND_TEMPSENERGIE);
+    public static Chrono temps_ravitaillement(Categorie spec, Circuit circuit, double fuelStand, double energyStand){
+        Chrono tempsFuelStand = new Chrono(spec.getRatioFuel());
+        Chrono tempsEnergyStand = new Chrono(spec.getRatioEnergy());
         tempsFuelStand.multiChrono(fuelStand);
         tempsEnergyStand.multiChrono(energyStand);
         if (tempsFuelStand.getChronoMilli() > tempsEnergyStand.getChronoMilli()){
