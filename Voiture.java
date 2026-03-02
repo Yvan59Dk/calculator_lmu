@@ -43,7 +43,7 @@ public class Voiture {
         this.tempsRestant = timer;
 
         this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
-        this.nbTour = donneesTour.size();
+        this.nbTour = donneesTour.size()-1;
     }
 
     public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
@@ -56,7 +56,7 @@ public class Voiture {
         this.tempsRestant = timer;
 
         this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
-        this.nbTour = donneesTour.size();
+        this.nbTour = donneesTour.size()-1;
     }
 
     public void modifFuel(Fuel fuel){
@@ -73,7 +73,10 @@ public class Voiture {
     }
 
     public void donneeTourIntervalle(int debut, int fin){
-        if (debut < 0 || donneesTour.size() < debut || fin < 0 || donneesTour.size() < fin ){
+        if ( fin == -1 ){
+            fin = nbTour;
+        }
+        if (debut < 0 || nbTour < debut || fin < 0 || nbTour < fin ){
             throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
         } else {
             for(int i = debut; i <= fin; i++){
