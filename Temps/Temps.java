@@ -1,168 +1,130 @@
 package Temps;
 
-public class Temps {
-    protected int valeur1;
-    protected int valeur2;
-    protected int valeur3;
+import Temps.TempsException.*;
 
-    /**
-     * Classe de temps permettant de faire un temps à trois valeur de base 100.
-     * @param v1 : Première valeurs.
-     * @param v2 : Deuxième valeurs.
-     * @param v3 : Troisième valeurs.
-     */
-    public Temps(int v1, int v2, int v3){
-        this.valeur1 = v1; 
-        this.valeur2 = v2; 
-        this.valeur3 = v3;
+/**
+ * Classe permettant une gestion simplifiée des temps que ce soit un timer de course ou un chrono.
+ * Il convertit tout les données qui lui sont données en milliseconde pour simplifiée les calculs.
+ * @version v2.0
+ * @author Yvan
+ */
+public class Temps implements Comparable<Temps>{
+    private int milliseconde;
+
+    public Temps(){
+        this.milliseconde = 0;
+    }
+
+    public Temps(int minute, int seconde, int milliseconde){
+        if ( minute < 0 ) {
+            throw new TempsNegatifException(minute);
+        } else if ( seconde < 0 ){
+            throw new TempsNegatifException(seconde);
+        } else if ( milliseconde < 0 ){
+            throw new TempsNegatifException(milliseconde);
+        }
+
+        this.milliseconde = convertMilliseconde(0, minute, seconde, milliseconde);
+    }
+
+    public Temps(int heure, int minute, int seconde, int milliseconde){
+        if ( heure < 0 ) {
+            throw new TempsNegatifException(heure);
+        } else if ( minute < 0 ) {
+            throw new TempsNegatifException(minute);
+        } else if ( seconde < 0 ){
+            throw new TempsNegatifException(seconde);
+        } else if ( milliseconde < 0 ){
+            throw new TempsNegatifException(milliseconde);
+        }
+
+        this.milliseconde = convertMilliseconde(heure, minute, seconde, milliseconde);
     }
 
     public Temps(Temps temps){
-        this.valeur1 = temps.valeur1;
-        this.valeur2 = temps.valeur2;
-        this.valeur3 = temps.valeur3;
-    }
-
-    public Temps(){
-        this.valeur1 = 0;
-        this.valeur2 = 0;
-        this.valeur3 = 0;
-    }
-
-    public int getValeur1(){
-        return valeur1;
-    }
-    public int getValeur2(){
-        return valeur2;
-    }
-    public int getValeur3(){
-        return valeur3;
+        this.milliseconde = temps.milliseconde;
     }
 
     /**
-     * Met à jour le chrono de référence de la voiture ( peut être son meilleur ou son moyen sur 5 tours ).
-     * @param v1 : la premiere valeur.
-     * @param v2 : la deuxiéme valeur.
-     * @param v3 : la troisiéme valeur.
+     * Fonction convertissant les valeurs données en millisecondes
+     * @param heure
+     * @param minute
+     * @param seconde
+     * @param milliseconde
+     * @return la valeur total en milliseconde
      */
-    public void MAJ_temps(int v1, int v2, int v3){
-        this.valeur1 = v1; 
-        this.valeur2 = v2; 
-        this.valeur3 = v3;
+    private int convertMilliseconde(int heure, int minute, int seconde, int milliseconde){
+        int milli = milliseconde 
+                    + seconde * 1000 
+                    + minute * 60000
+                    + heure * 3600000;
+        return milli;
     }
 
     /**
-     * Soustrait deux valeurs numéro 1 de temps.
-     * @param v1 Valeur numéro 1.
+     * Renvois les Millisecondes du temps.
+     * @return int milliseconde
      */
-    protected void diff_valeur1(int v1){
-        this.valeur1 -= v1;
-        if (this.valeur1 <= 0){
-            this.valeur1 = 0;
-        }
-    }
-    /**
-     * Soustrait deux valeurs numéro 2 de temps.
-     * @param v2 Valeur numéro 2.
-     */
-    protected void diff_valeur2(int v2){
-        if (this.valeur2 == 0){
-            this.diff_valeur3(v2*60);
-        } else {
-            this.valeur2 -= v2;
-        }
-        if (this.valeur2 <= 0){
-            if(this.valeur1 != 0){
-                this.valeur2 += 100;
-                this.valeur1 -= 1;
-            } else {
-                this.valeur2 = 0;
-            }
-        }
-    }
-    /**
-     * Soustrait deux valeurs numéro 3 de temps.
-     * @param v3 Valeur numéro 3.
-     */
-    protected void diff_valeur3(int v3){
-        this.valeur3 -= v3;
-        if (this.valeur3 < 0){
-            if (this.valeur2 > 0){
-                this.valeur3 += 100;
-                this.valeur2 -= 1;
-            } else if (this.valeur1 > 0){
-                this.valeur3 += 100;
-                this.valeur2 = 99;
-                this.valeur1 -= 1;
-            } else {
-                this.valeur3 = 0;
-            }
-        }
+    public int getMilliseconde(){
+        return this.milliseconde;
     }
 
-    /** 
-     * Additionne deux valeurs numéro 1 de temps
-     * @param v1 Valeur numéro 1.
-     */
-    protected void somme_valeur1(int v1){
-        this.valeur1 += v1;
-    }
-    /** 
-     * Additionne deux valeurs numéro 2 de temps
-     * @param v2 Valeur numéro 2.
-     */
-    protected void somme_valeur2(int v2){
-        this.valeur2 += v2;
-        if (this.valeur2 >= 100){
-            this.valeur2 -= 100;
-            this.valeur1 += 1;
-        }
-    }
-    /** 
-     * Additionne deux valeurs numéro 3 de temps
-     * @param v3 Valeur numéro 3.
-     */
-    protected void somme_valeur3(int v3){
-        this.valeur3 += v3;
-        if (this.valeur3 >= 100){
-            this.valeur3 -= 100;
-            this.valeur2 += 1;
-        }
+    public int compareTo(Temps temps){
+        return this.milliseconde - temps.milliseconde;
     }
 
     /**
-     * Additionne deux temps ensembles.
-     * Le calcul est fait en sorte pour que les bases soit bonnes en fonction de ce qu'on utilise comme type de temps.
-     * @param temps : Variable de classe Temps.
+     * Ajoute du temps
+     * @param temps Une variable de classe Temps
      */
-    public void somme_temps(Temps temps){
-        somme_valeur1(temps.valeur1);
-        somme_valeur2(temps.valeur2);
-        somme_valeur3(temps.valeur3);
+    public void addTemps(Temps temps){
+        this.milliseconde += temps.milliseconde;
     }
 
     /**
-     * Soustrait deux temps ensembles.
-     * Le calcul est fait en sorte pour que les bases soit bonnes en fonction de ce qu'on utilise comme type de temps.
-     * @param temps : Variable de classe Temps.
+     * Enleve du temps
+     * @param temps Une variable de classe Temps
      */
-    public void diff_temps(Temps temps){
-        diff_valeur1(temps.valeur1);
-        diff_valeur2(temps.valeur2);
-        diff_valeur3(temps.valeur3);
+    public void soustractTemps(Temps temps){
+        this.milliseconde -= temps.milliseconde;
     }
 
     /**
-     * Soustrait au timer un chrono
-     * @param timer : Le timer à modifier
-     * @param chrono : Le chrono de référence
+     * Multiplie le temps
+     * @param multi un double qui multiplira le temps
      */
-    public void diff_Timer_Chrono(Timer timer, Chrono chrono){
-        timer.diff_valeur2(chrono.valeur1);
-        timer.diff_valeur3(chrono.valeur2);
+    public void multiTemps(double multi){
+        this.milliseconde *= multi;
+    }
+
+    /**
+     * Verifie si le temps est négatif.
+     * @return un boolean `True` si les millisecondes sont négatif et `False` si ils sont positifs
+     */
+    public boolean checkNul(){
+        return (milliseconde > 0);
     }
 
     public String toString(){
-        return this.valeur1 + " " + this.valeur2 + " " + this.valeur3;
+        String chronoString = "";
+        int ms = milliseconde;
+
+        int heure = ms / 3600000;
+        ms %= 3600000;
+        int minute = ms / 60000;
+        ms %= 60000;
+        int seconde = ms / 1000;
+        ms %= 1000;
+        int millisecondeRestante = ms;
+
+        if (heure == 0) {
+            chronoString = String.format("%02d:%02d.%03d",
+                minute, seconde, millisecondeRestante);
+        } else {
+            chronoString = String.format("%02d::%02d:%02d.%03d",
+                heure, minute, seconde, millisecondeRestante);
+        }
+        
+        return chronoString;
     }
 }

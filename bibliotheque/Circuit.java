@@ -8,31 +8,31 @@ import Temps.*;
 public enum Circuit {
     // Spa-Francorchamp
     /** Le circuit SPA classique contenant les données de stand */
-    SPA("Spa",new Chrono(0,36,410)),
+    SPA("Spa",new Temps(0,36,410)),
     /** Le circuit SPA Endurance ( celui utilisé en GTWC ou leur jeu ACC) contenant les données de stand */
-    SPA_ENDU("Spa Endurance", new Chrono(1,7,970)),
+    SPA_ENDU("Spa Endurance", new Temps(1,7,970)),
 
     // Monza
     /** Le circuit Monza Classique contenant les données de stand */
-    MONZA("Monza",new Chrono(0,28,720)),
+    MONZA("Monza",new Temps(0,28,720)),
     /** Le circuit Monza sans Chicane 1 contenant les données de stand */
-    MONZA_NOCHICANE("Monza sans chicane",new Chrono(0,30,720)),
+    MONZA_NOCHICANE("Monza sans chicane",new Temps(0,30,720)),
 
     // Imola
     /** Le circuit d'Imola contenant les données de stand */
-    IMOLA("Imola",new Chrono(0,35,160)),
+    IMOLA("Imola",new Temps(0,35,160)),
 
     // Bahrein
     /** Le circuit de Bahrein contenant les données de stand */
-    BAHREIN("Bahrein",new Chrono(0,28,1)),
+    BAHREIN("Bahrein",new Temps(0,28,1)),
 
     // Qatar
     /** Le circuit du Qatar contenant les données de stand */
-    QATAR("Qatar",new Chrono(0,32,990)),
+    QATAR("Qatar",new Temps(0,32,990)),
 
     // Le Mans
     /** Le circuit du Mans contenant les données de stand */
-    LEMANS("La Mans",new Chrono(0,34,54)),
+    LEMANS("La Mans",new Temps(0,34,54)),
 
     // COTA (Circuit Of The America)
     /** Le Circuit des Ameriques contenant les données de stand */
@@ -40,7 +40,7 @@ public enum Circuit {
     
     // Silverstone
     /** Le circuit de Silverstone contenant les données de stand */
-    SILVERSTONE("Silverstone", new Chrono(0,32,760)),
+    SILVERSTONE("Silverstone", new Temps(0,32,760)),
 
     // Portimao
     /** Le circuit de Portimao contenant les données de stand */
@@ -56,14 +56,14 @@ public enum Circuit {
 
     // Sebring
     /** Le circuit de Sebring contenant les données de stand */
-    SEBRING("Sebring", new Chrono(0,35,540));
+    SEBRING("Sebring", new Temps(0,35,540));
 
     /** Le nom du circuit */
     private String desc;
     /** Le Temps mis au stand sans compter l'arrêt au stand */
-    private Chrono pit;
+    private Temps pit;
 
-    private Circuit(String desc, Chrono pit){
+    private Circuit(String desc, Temps pit){
         this.desc = desc;
         this.pit = pit;
     }
@@ -80,7 +80,7 @@ public enum Circuit {
      * Renvois le temps passer dans la Pitlane ( sans compter l'arrêt au stand )
      * @return Temps mis dans la Pitlane
      */
-    public Chrono getPitLane(){
+    public Temps getPitLane(){
         return pit;
     }
 }

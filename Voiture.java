@@ -30,10 +30,10 @@ public class Voiture {
     public List<Donnee> donneesTour;
     public double[] save;
 
-    public Chrono chrono;
-    public Timer tempsRestant;
+    public Temps chrono;
+    public Temps tempsRestant;
 
-    public Voiture(Categorie spec, Circuit circuit, Chrono chrono, Timer timer){
+    public Voiture(Categorie spec, Circuit circuit, Temps chrono, Temps timer){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
@@ -46,7 +46,7 @@ public class Voiture {
         this.nbTour = donneesTour.size()-1;
     }
 
-    public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer){
+    public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = fuel;

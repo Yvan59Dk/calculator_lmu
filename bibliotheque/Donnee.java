@@ -21,24 +21,24 @@ public class Donnee {
     private double energy_conso;
 
     /** Le chrono de ce tour */
-    private Chrono chrono;
+    private Temps chrono;
 
     /** Le timer à la fin de ce tour */
-    private Timer timer;
+    private Temps timer;
 
     /** Si il faut rentrer au stand durant ce tour */
     private boolean stand = false;
     private double fuelStand;
     private double energyStand;
 
-    public Donnee(int numTour, Fuel fuel, Energy energy, Chrono chrono, Timer timer, boolean stand, double fuelStand, double energyStand){
+    public Donnee(int numTour, Fuel fuel, Energy energy, Temps chrono, Temps timer, boolean stand, double fuelStand, double energyStand){
         this.numTour = numTour;
         this.fuel_actuel = fuel.getFuel_actuel();
         this.fuel_conso = fuel.getFuel_conso();
         this.energy_actuel = energy.getEnergy_actuel();
         this.energy_conso = energy.getEnergy_conso();
-        this.chrono = new Chrono(chrono);
-        this.timer = new Timer(timer);
+        this.chrono = new Temps(chrono);
+        this.timer = new Temps(timer);
 
         this.stand = stand;
         if (stand || fuelStand != 0 || energyStand != 0){
@@ -67,11 +67,11 @@ public class Donnee {
         return this.energy_conso;
     }
 
-    public Chrono getChrono(){
+    public Temps getChrono(){
         return this.chrono;
     }
 
-    public Timer getTimer(){
+    public Temps getTimer(){
         return this.timer;
     }
 

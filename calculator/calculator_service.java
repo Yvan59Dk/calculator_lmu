@@ -61,16 +61,16 @@ public class Calculator_Service {
      * @param energyStand: l'énergie mis au stand
      * @return Chrono du ravitaillement
      */
-    public static Chrono temps_ravitaillement(Categorie spec, Circuit circuit, double fuelStand, double energyStand){
-        Chrono tempsFuelStand = new Chrono(spec.getRatioFuel());
-        Chrono tempsEnergyStand = new Chrono(spec.getRatioEnergy());
-        tempsFuelStand.multiChrono(fuelStand);
-        tempsEnergyStand.multiChrono(energyStand);
-        if (tempsFuelStand.getChronoMilli() > tempsEnergyStand.getChronoMilli()){
-            tempsFuelStand.somme_temps(circuit.getPitLane());
+    public static Temps temps_ravitaillement(Categorie spec, Circuit circuit, double fuelStand, double energyStand){
+        Temps tempsFuelStand = new Temps(spec.getRatioFuel());
+        Temps tempsEnergyStand = new Temps(spec.getRatioEnergy());
+        tempsFuelStand.multiTemps(fuelStand);
+        tempsEnergyStand.multiTemps(energyStand);
+        if (tempsFuelStand.compareTo(tempsEnergyStand) < 0){
+            tempsFuelStand.addTemps(circuit.getPitLane());
             return tempsFuelStand;
         } else {
-            tempsEnergyStand.somme_temps(circuit.getPitLane());
+            tempsEnergyStand.addTemps(circuit.getPitLane());
             return tempsEnergyStand;
         }
     }
@@ -82,13 +82,13 @@ public class Calculator_Service {
      * @param fuel : Variable de classe Fuel
      * @return le carburant à mettre au stand.
      */
-    public static double fuel_stand(Chrono chrono, Timer timer, Fuel fuel){
+    public static double fuel_stand(Temps chrono, Temps timer, Fuel fuel){
         Fuel fuelTemp = new Fuel(fuel);
-        Timer timerTemp = new Timer(timer);
+        Temps timerTemp = new Temps(timer);
         double fuelStand = 0;
-        while(fuelStand < fuel_rendement(fuelTemp) && timerTemp.verif()){
+        while(fuelStand < fuel_rendement(fuelTemp) && timerTemp.checkNul()){
             fuelStand += fuelTemp.getFuel_conso();
-            timerTemp.diff_Timer_Chrono(timerTemp, chrono);
+            timerTemp.soustractTemps(chrono);
         }
         if (fuelStand > fuel_rendement(fuelTemp)){
             fuelStand = fuel_rendement(fuelTemp);
@@ -103,14 +103,14 @@ public class Calculator_Service {
      * @param fuel : Variable de classe Energie
      * @return l'énergie à mettre au stand.
      */
-    public static double energy_stand(Chrono chrono, Timer timer, Energy energy){
+    public static double energy_stand(Temps chrono, Temps timer, Energy energy){
         if (energy.getEnergy_conso() != 0){
             Energy energyTemp = new Energy(energy);
-            Timer timerTemp = new Timer(timer);
+            Temps timerTemp = new Temps(timer);
             double energyStand = 0;
-            while(energyStand < ENERGY_MAX && timerTemp.verif()){
+            while(energyStand < ENERGY_MAX && timerTemp.checkNul()){
                 energyStand += energyTemp.getEnergy_conso();
-                timerTemp.diff_Timer_Chrono(timerTemp, chrono);
+                timerTemp.soustractTemps(chrono);
             }
             if (energyStand > ENERGY_MAX){
                 energyStand = ENERGY_MAX;

@@ -12,31 +12,16 @@ import calculator.*;
 public class Central_Service{
 
     /**
-     * Fonction Calculatoire qui calcul le nombre de tour à faire durant la course.
-     * @param chrono : La variable de classe 'Chrono' qui contient le chrono de référence.
-     * @param timer : La variable de classe 'Timer' qui contient le temps restant de la course.
-     * @return un double qui est le nombre de tour.
-     * @deprecated : C'est une fonction qui donne le nombre le plus précis de tour en le mettant en 
-     * nombre à virgule. CE N'EST PAS LA FONCTION A UTILISER pour faire des calculs précis car peu importe 
-     * la virgule, la voiture DOIT passer la ligne et donc finir avec un nombre entier de tour.
-     */
-    public static double calcul_nbTour(Chrono chrono, Timer timer){
-        int temps_seconde_timer = timer.getValeur1()* 3600 + timer.getValeur2()*60 + timer.getValeur3();
-        int temps_seconde_chrono = chrono.getValeur1()*60 + chrono.getValeur2();
-        return temps_seconde_timer / temps_seconde_chrono;
-    }
-
-    /**
      * Fonction Calculatoire qui calcule le nombre de tour réel à faire durant la course .
-     * @param chrono : La variable de classe 'Chrono' qui contient le chrono de référence.
-     * @param timer_course : La variable de classe 'Timer' qui contient le temps restant de la course.
+     * @param chrono : La variable de classe 'Temps' qui contient le chrono de référence.
+     * @param timer_course : La variable de classe 'Temps' qui contient le temps restant de la course.
      * @return un integer qui est le nombre de tour réel.
      */
-    public static int calcul_nbTour_théorique(Chrono chrono, Timer timer_course){
-        Timer timer = new Timer(timer_course);
+    public static int calcul_nbTour_théorique(Temps chrono, Temps temps_course){
+        Temps timer = new Temps(temps_course);
         int tour = 0;
-        while (timer.verif()){
-            timer.diff_Timer_Chrono(timer, chrono);
+        while (timer.checkNul()){
+            timer.soustractTemps(chrono);
             tour++;
         }
         return tour;
@@ -49,7 +34,7 @@ public class Central_Service{
      * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant.
      * @return un tuple de double de taille 2 au format [Carburant à mettre,Energie à mettre] 
      */
-    public static double[] calcul_refuel_stand(Chrono chrono, Timer timer, Energy energy, Fuel fuel){
+    public static double[] calcul_refuel_stand(Temps chrono, Temps timer, Energy energy, Fuel fuel){
         double[] res = new double[2];
         res[0] = Calculator_Service.fuel_stand(chrono, timer, fuel);
         res[1] = Calculator_Service.energy_stand(chrono, timer, energy);
@@ -60,23 +45,23 @@ public class Central_Service{
      * Fonction Calculatoire qui prédit d'après les statistiques données, les tours durant la course.
      * @param fuel : Variable de classe 'Fuel' qui contient les informations nécessaires du carburant.
      * @param energy : Variable de classe 'Energy' qui contient les informations nécessaires de l'énergie.
-     * @param chrono : Variable de classe 'Chrono' qui contient le chrono de référence.
-     * @param timer : Variable de classe 'Timer' qui contient le timer restant de la course.
+     * @param chrono : Variable de classe 'Temps' qui contient le chrono de référence.
+     * @param timer : Variable de classe 'Temps' qui contient le timer restant de la course.
      * @param nbTourActuel : int qui est le nombre de tour fait.
      * @param nbTour : int qui est le nombre de tour total.
      * @return une liste d'élément de classe Données.
      */
-    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Chrono chrono, Timer timer, int nbTourActuel){
+    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer, int nbTourActuel){
         // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
 
         // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
         Fuel fuelTemp = new Fuel(fuel);
         Energy energyTemp = new Energy(energy);
-        Timer timerTemp = new Timer(timer);
+        Temps timerTemp = new Temps(timer);
         
         // Variable local.
-        Chrono tempsStand = new Chrono();
+        Temps tempsStand = new Temps();
         double[] refuelStand = {0,0};
         
         boolean stand = false;
@@ -86,7 +71,7 @@ public class Central_Service{
         int i = 0;
         int tour = nbTourActuel;
 
-        while(timerTemp.verif()){
+        while(timerTemp.checkNul()){
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
@@ -98,8 +83,8 @@ public class Central_Service{
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
 
                 // Temps dans la voie des stands
-                tempsStand = new Chrono(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));
-                chrono.somme_temps(tempsStand);
+                tempsStand = new Temps(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));
+                chrono.addTemps(tempsStand);
                 timeStand = true;
                 stand = true;
             }
@@ -118,11 +103,11 @@ public class Central_Service{
                 stand = false;
             }
             if (timeStand){
-                chrono.diff_temps(tempsStand);
+                chrono.soustractTemps(tempsStand);
                 timeStand = false;
             }
 
-            timerTemp.diff_Timer_Chrono(timerTemp, chrono);
+            timerTemp.soustractTemps(chrono);
             i++;
         }
         List<Donnee> res = Collections.unmodifiableList(listeDonnees);
