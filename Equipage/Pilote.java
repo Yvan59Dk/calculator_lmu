@@ -6,8 +6,8 @@ public class Pilote {
     public String nom;
     public String prenom;
 
-    private Chrono tempsChrono;
-    private Chrono tempsReference;
+    private Temps tempsChrono;
+    private Temps tempsReference;
 
     Pilote(){
         this.nom = null;
@@ -16,33 +16,33 @@ public class Pilote {
         this.tempsReference = null;
     }
 
-    Pilote(String prenom, String nom, Chrono tempsChrono, Chrono tempsReference){
+    Pilote(String prenom, String nom, Temps tempsChrono, Temps tempsReference){
         this.nom = nom;
         this.prenom = prenom;
         this.tempsChrono = tempsChrono;
-        this.tempsReference = new Chrono(tempsReference);
+        this.tempsReference = new Temps(tempsReference);
     }
 
-    Pilote(String prenom, String nom, Chrono tempsChrono){
+    Pilote(String prenom, String nom, Temps tempsChrono){
         this.nom = nom;
         this.prenom = prenom;
         this.tempsChrono = tempsChrono;
-        this.tempsReference = new Chrono(tempsChrono);
+        this.tempsReference = new Temps(tempsChrono);
     }
 
-    public Chrono getTempsChrono(){
+    public Temps getTempsChrono(){
         return tempsChrono;
     }
 
-    public Chrono getTempsReference(){
+    public Temps getTempsReference(){
         return tempsReference;
     }
 
-    public void setChrono(Chrono chrono){
+    public void setChrono(Temps chrono){
         tempsChrono = chrono;
     }
 
-    public void setReference(Chrono refChrono){
+    public void setReference(Temps refChrono){
         tempsReference = refChrono;
     }
 }

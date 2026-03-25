@@ -68,7 +68,7 @@ public class LineUp{
     public Pilote pilotBestTempsChrono(){
         Pilote res = lineUp.get(0);
         for(int i = 1; i < lineUp.size(); i++){
-            if(lineUp.get(i).getTempsChrono().getChronoMilli() < res.getTempsChrono().getChronoMilli()){
+            if(lineUp.get(i).getTempsChrono().compareTo(res.getTempsChrono()) < 0){
                 res = lineUp.get(i);
             }
         }
@@ -78,28 +78,28 @@ public class LineUp{
     public Pilote pilotBestTempsReference(){
         Pilote res = lineUp.get(0);
         for(int i = 1; i < lineUp.size(); i++){
-            if(lineUp.get(i).getTempsReference().getChronoMilli() < res.getTempsReference().getChronoMilli()){
+            if(lineUp.get(i).getTempsReference().compareTo(res.getTempsReference()) < 0){
                 res = lineUp.get(i);
             }
         }
         return res;
     }
 
-    public Chrono bestTempsChrono(){
+    public Temps bestTempsChrono(){
         Pilote res = pilotBestTempsChrono();
         return res.getTempsChrono();
     }
 
-    public Chrono bestTempsReference(){
+    public Temps bestTempsReference(){
         Pilote res = pilotBestTempsReference();
         return res.getTempsChrono();
     }
 
-    public void setTempsChrono(String nom, Chrono chrono){
+    public void setTempsChrono(String nom, Temps chrono){
         lineUp.get(nomToIndex(nom)).setChrono(chrono);
     }
 
-    public void setTempsReference(String nom, Chrono chrono){
+    public void setTempsReference(String nom, Temps chrono){
         lineUp.get(nomToIndex(nom)).setReference(chrono);
     }
 
