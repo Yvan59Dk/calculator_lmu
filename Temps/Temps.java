@@ -8,7 +8,7 @@ import Temps.TempsException.*;
  * @version v2.0
  * @author Yvan
  */
-public class Temps implements Comparable<Temps>{
+public class Temps implements Comparable<Temps>, Cloneable {
     private int milliseconde;
 
     public Temps(){
@@ -47,10 +47,10 @@ public class Temps implements Comparable<Temps>{
 
     /**
      * Fonction convertissant les valeurs données en millisecondes
-     * @param heure
-     * @param minute
-     * @param seconde
-     * @param milliseconde
+     * @param heure : int : Nombres d'heures
+     * @param minute : int : Nombres de minutes
+     * @param seconde : int : Nombres de secondes
+     * @param milliseconde : int : Nombres de millisecondes
      * @return la valeur total en milliseconde
      */
     private int convertMilliseconde(int heure, int minute, int seconde, int milliseconde){
@@ -71,6 +71,10 @@ public class Temps implements Comparable<Temps>{
 
     public int compareTo(Temps temps){
         return this.milliseconde - temps.milliseconde;
+    }
+
+    public Temps clone(){
+        return new Temps(this);
     }
 
     /**
@@ -102,7 +106,7 @@ public class Temps implements Comparable<Temps>{
      * @return un boolean `True` si les millisecondes sont négatif et `False` si ils sont positifs
      */
     public boolean checkNul(){
-        return (milliseconde > 0);
+        return (milliseconde >= 0);
     }
 
     public String toString(){
@@ -115,14 +119,13 @@ public class Temps implements Comparable<Temps>{
         ms %= 60000;
         int seconde = ms / 1000;
         ms %= 1000;
-        int millisecondeRestante = ms;
 
         if (heure == 0) {
             chronoString = String.format("%02d:%02d.%03d",
-                minute, seconde, millisecondeRestante);
+                minute, seconde, ms);
         } else {
-            chronoString = String.format("%02d::%02d:%02d.%03d",
-                heure, minute, seconde, millisecondeRestante);
+            chronoString = String.format("%02d:%02d:%02d.%03d",
+                heure, minute, seconde, ms);
         }
         
         return chronoString;
