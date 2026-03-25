@@ -4,7 +4,7 @@ package calculator;
  * la consommation de carburant, le carburant maximal et le rendement de carburant par rapport à l'énergie.
  * Elle contient des méthodes permettant de aire évolué ces valeurs en fonction de la course.
 */
-public class Fuel {
+public class Fuel implements Cloneable {
 
     /*** Double : Consommation de carburant par tour */
     private double fuel_conso;
@@ -77,6 +77,10 @@ public class Fuel {
      */
     public double getFuel_rendement(){
         return fuel_rendement;
+    }
+
+    public Fuel clone(){
+        return new Fuel(this);
     }
 
     /**

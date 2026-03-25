@@ -83,7 +83,7 @@ public class calculator_service {
      * @return le carburant à mettre au stand.
      */
     public static double fuel_stand(Chrono chrono, Timer timer, Fuel fuel){
-        Fuel fuelTemp = new Fuel(fuel);
+        Fuel fuelTemp = fuel.clone();
         Timer timerTemp = new Timer(timer);
         double fuelStand = 0;
         while(fuelStand < fuel_rendement(fuelTemp) && timerTemp.verif()){

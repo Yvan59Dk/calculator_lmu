@@ -4,7 +4,7 @@ package calculator;
  * la consommation d'énergie ainsi que d'autres méthodes influançant l'énergie de la voiture permettant l'évolution
  * des valeurs en fonction de la course.
  */
-public class Energy {
+public class Energy implements Cloneable {
     // Variable final de l'énergie max
     final public static double ENERGY_MAX = 100.0;
 
@@ -45,6 +45,10 @@ public class Energy {
      */
     public double getEnergy_conso(){
         return energy_conso;
+    }
+
+    public Energy clone(){
+        return new Energy(this);
     }
 
     /**

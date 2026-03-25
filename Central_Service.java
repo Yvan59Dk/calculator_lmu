@@ -71,8 +71,8 @@ public class Central_Service{
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
 
         // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
-        Fuel fuelTemp = new Fuel(fuel);
-        Energy energyTemp = new Energy(energy);
+        Fuel fuelTemp = fuel.clone();
+        Energy energyTemp = energy.clone();
         Timer timerTemp = new Timer(timer);
         
         // Variable local.
