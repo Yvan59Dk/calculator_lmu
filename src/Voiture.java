@@ -46,7 +46,7 @@ public class Voiture {
         this.chrono = chrono;
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, circuit, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 
@@ -60,7 +60,7 @@ public class Voiture {
         this.chrono = chrono;
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, circuit, fuel, energy, chrono, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, circuit, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 

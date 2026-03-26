@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Temps.*;
 
-public class LineUp{
-    private List<Pilote> lineUp = new ArrayList<>();
+public class LineUp {
+    private List<Pilote> lineUp = new ArrayList<Pilote>();
 
     public LineUp(Pilote pilote1){
         lineUp.add(pilote1);
@@ -66,33 +66,38 @@ public class LineUp{
         return -1;
     }
 
-    public Pilote pilotBestTempsChrono(){
+    public int pilotBestTempsChrono(){
         Pilote res = lineUp.get(0);
-        for(int i = 1; i < lineUp.size(); i++){
+        int index = 0;
+        for(int i = 0; i < lineUp.size(); i++){
             if(lineUp.get(i).getTempsChrono().compareTo(res.getTempsChrono()) < 0){
                 res = lineUp.get(i);
+                index = i;
             }
         }
-        return res;
+        return index;
+        
     }
 
-    public Pilote pilotBestTempsReference(){
+    public int pilotBestTempsReference(){
         Pilote res = lineUp.get(0);
-        for(int i = 1; i < lineUp.size(); i++){
+        int index = 0;
+        for(int i = 0; i < lineUp.size(); i++){
             if(lineUp.get(i).getTempsReference().compareTo(res.getTempsReference()) < 0){
                 res = lineUp.get(i);
+                index = i;
             }
         }
-        return res;
+        return index;
     }
 
     public Temps bestTempsChrono(){
-        Pilote res = pilotBestTempsChrono();
+        Pilote res = lineUp.get(pilotBestTempsChrono());
         return res.getTempsChrono();
     }
 
     public Temps bestTempsReference(){
-        Pilote res = pilotBestTempsReference();
+        Pilote res = lineUp.get(pilotBestTempsReference());
         return res.getTempsChrono();
     }
 
@@ -104,8 +109,8 @@ public class LineUp{
         lineUp.get(nomToIndex(nom)).setReference(chrono);
     }
 
-    public void delPilote(String nom){
-        lineUp.remove(nomToIndex(nom));
+    public void delPilote(int index){
+        lineUp.remove(index);
     }
 
     public void addPilote(Pilote pilote){

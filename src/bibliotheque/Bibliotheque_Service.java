@@ -4,7 +4,7 @@ package bibliotheque;
 public class Bibliotheque_Service {
 
     /** Nombre de chiffre après la virgule pour les doubles */
-    public final static int LIMITDIGIT = 1;
+    public final static int LIMITDIGIT = 2;
 
     /** 
      * Fonction qui retourne le String d'un double avec une limite de deux chiffres après la virgule

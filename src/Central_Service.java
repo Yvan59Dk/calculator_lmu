@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import Equipage.LineUp;
+import Equipage.LineUp_Service;
 import Temps.*;
 import bibliotheque.*;
 import calculator.*;
@@ -12,6 +14,8 @@ import calculator.*;
  * Classe qui englobe de manière général les méthodes à utilisé dans le code.
  */
 public class Central_Service{
+
+    public final static double VARIATIONPOURCENT = 100.1;
 
     /**
      * Fonction Calculatoire qui calcule le nombre de tour réel à faire durant la course .
@@ -55,14 +59,18 @@ public class Central_Service{
      * @param nbTour : int qui est le nombre de tour total.
      * @return une liste d'élément de classe Données.
      */
-    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer, int nbTourActuel){
+    public static List<Donnee> calcul_tour(Categorie spec, LineUp lineUp, Circuit circuit, Fuel fuel, Energy energy,  Temps timer,  int nbTourActuel){
         // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
+
+        // Indice de la liste de la LineUp
+        int index = lineUp.pilotBestTempsChrono();
 
         // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
         Fuel fuelTemp = fuel.clone();
         Energy energyTemp = energy.clone();
         Temps timerTemp = timer.clone();
+        Temps chrono = lineUp.getLineUp().get(index).getTempsReference().clone();
         
         // Variable local.
         Temps tempsStand = new Temps();
@@ -79,12 +87,16 @@ public class Central_Service{
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
+            chrono = LineUp_Service.variationTempsRef(chrono, VARIATIONPOURCENT);
 
             if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= 0 
                 || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= 0){
                 refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
                 energyTemp.MAJ_energy_actuel(refuelStand[1]);
                 fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
+
+                index = (index + 1) % lineUp.getLineUp().size();
+                chrono = lineUp.getLineUp().get(index).getTempsReference().clone();
 
                 // Temps dans la voie des stands
                 tempsStand = new Temps(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));
