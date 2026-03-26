@@ -1,11 +1,9 @@
-
-
-import java.util.Iterator;
 import java.util.List;
 
 import Temps.*;
 import bibliotheque.*;
 import calculator.*;
+import Equipage.*;
 
 public class Voiture {
 
@@ -28,6 +26,9 @@ public class Voiture {
     // Variable d'Energie
     public Energy energy;
 
+    // Variable pour la LineUp
+    public LineUp lineUp;
+
     public int nbTour;
     public List<Donnee> donneesTour;
     public double[] save;
@@ -35,11 +36,12 @@ public class Voiture {
     public Temps chrono;
     public Temps tempsRestant;
 
-    public Voiture(Categorie spec, Circuit circuit, Temps chrono, Temps timer){
+    public Voiture(Categorie spec, LineUp lineUp, Circuit circuit, Temps chrono, Temps timer){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = new Fuel(DEFAULT_FUEL_CONSO, this.spec.getFuel_max(), this.spec.getFuel_rendement());
         this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
+        this.lineUp = lineUp;
 
         this.chrono = chrono;
         this.tempsRestant = timer;
@@ -48,11 +50,12 @@ public class Voiture {
         this.nbTour = donneesTour.size()-1;
     }
 
-    public Voiture(Categorie spec, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer){
+    public Voiture(Categorie spec, LineUp lineUp, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = fuel;
         this.energy = energy;
+        this.lineUp = lineUp;
 
         this.chrono = chrono;
         this.tempsRestant = timer;
@@ -66,25 +69,6 @@ public class Voiture {
     }
     public void modifFuelConso(double fuel_conso){
         fuel.MAJ_fuel_conso(fuel_conso);
-    }
-
-    public void donneeTour(){
-        for(Iterator<Donnee> it = donneesTour.iterator(); it.hasNext();){
-            System.out.print(it.next());
-        }
-    }
-
-    public void donneeTourIntervalle(int debut, int fin){
-        if ( fin == -1 ){
-            fin = nbTour;
-        }
-        if (debut < 0 || nbTour < debut || fin < 0 || nbTour < fin ){
-            throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
-        } else {
-            for(int i = debut; i <= fin; i++){
-                System.out.print(donneesTour.get(i));
-            }
-        }
     }
 
     public String toString(){

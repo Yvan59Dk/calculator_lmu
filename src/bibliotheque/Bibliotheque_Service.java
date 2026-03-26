@@ -1,10 +1,10 @@
 package bibliotheque;
 
 /** Classe regroupant les fonctions utilisé pour convertir des valeurs et d'autres ou dans certains formats */
-public class Convert_Service {
+public class Bibliotheque_Service {
 
     /** Nombre de chiffre après la virgule pour les doubles */
-    public final static int LIMITDIGIT = 2;
+    public final static int LIMITDIGIT = 1;
 
     /** 
      * Fonction qui retourne le String d'un double avec une limite de deux chiffres après la virgule

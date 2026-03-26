@@ -1,34 +1,35 @@
 package Equipage;
 
+import java.util.ArrayList;
 import java.util.List;
 import Temps.*;
 
 public class LineUp{
-    private List<Pilote> lineUp;
+    private List<Pilote> lineUp = new ArrayList<>();
 
-    LineUp(Pilote pilote1){
+    public LineUp(Pilote pilote1){
         lineUp.add(pilote1);
     }
 
-    LineUp(Pilote pilote1, Pilote pilote2){
+    public LineUp(Pilote pilote1, Pilote pilote2){
         lineUp.add(pilote1);
         lineUp.add(pilote2);
     }
 
-    LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3){
+    public LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3){
         lineUp.add(pilote1);
         lineUp.add(pilote2);
         lineUp.add(pilote3);
     }
 
-    LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4){
+    public LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4){
         lineUp.add(pilote1);
         lineUp.add(pilote2);
         lineUp.add(pilote3);
         lineUp.add(pilote4);
     }
 
-    LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4, Pilote pilote5){
+    public LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4, Pilote pilote5){
         lineUp.add(pilote1);
         lineUp.add(pilote2);
         lineUp.add(pilote3);
@@ -36,7 +37,7 @@ public class LineUp{
         lineUp.add(pilote5);
     }
 
-    LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4, Pilote pilote5, Pilote pilote6){
+    public LineUp(Pilote pilote1, Pilote pilote2, Pilote pilote3, Pilote pilote4, Pilote pilote5, Pilote pilote6){
         lineUp.add(pilote1);
         lineUp.add(pilote2);
         lineUp.add(pilote3);
@@ -45,7 +46,7 @@ public class LineUp{
         lineUp.add(pilote6);
     }
 
-    LineUp(LineUp lineUp){
+    public LineUp(LineUp lineUp){
         this.lineUp = lineUp.getLineUp();
     }
 

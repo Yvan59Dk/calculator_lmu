@@ -9,21 +9,21 @@ public class Pilote {
     private Temps tempsChrono;
     private Temps tempsReference;
 
-    Pilote(){
+    public Pilote(){
         this.nom = null;
         this.prenom = null;
         this.tempsChrono = null;
         this.tempsReference = null;
     }
 
-    Pilote(String prenom, String nom, Temps tempsChrono, Temps tempsReference){
+    public Pilote(String prenom, String nom, Temps tempsChrono, Temps tempsReference){
         this.nom = nom;
         this.prenom = prenom;
         this.tempsChrono = tempsChrono;
         this.tempsReference = new Temps(tempsReference);
     }
 
-    Pilote(String prenom, String nom, Temps tempsChrono){
+    public Pilote(String prenom, String nom, Temps tempsChrono){
         this.nom = nom;
         this.prenom = prenom;
         this.tempsChrono = tempsChrono;
