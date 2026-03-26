@@ -113,10 +113,10 @@ public class Donnee {
         String res = " | Tour " + this.numTour +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel_conso + "L " + this.energy_conso + "% " +
-            " | Actuel : " + Convert_Service.toStringDouble(this.fuel_actuel) + "L " + Convert_Service.toStringDouble(this.energy_actuel)+ "% "+
+            " | Actuel : " + Bibliotheque_Service.toStringDouble(this.fuel_actuel) + "L " + Bibliotheque_Service.toStringDouble(this.energy_actuel)+ "% "+
             " | " + this.chrono;
         if (stand){
-            res += " | Stand / Fuel : " + Convert_Service.toStringDouble(this.fuelStand) + " / Energy : " + Convert_Service.toStringDouble(this.energyStand) + " | \n";
+            res += " | Stand / Fuel : " + Bibliotheque_Service.toStringDouble(this.fuelStand) + " / Energy : " + Bibliotheque_Service.toStringDouble(this.energyStand) + " | \n";
         } else {
             res += " | R.A.S | \n";
         }

@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import Temps.*;
@@ -41,6 +42,8 @@ public class Central_Service{
         res[1] = Calculator_Service.energy_stand(chrono, timer, energy);
         return res;
     }
+
+    // -- Fonction en rapport avec les données --
 
     /**
      * Fonction Calculatoire qui prédit d'après les statistiques données, les tours durant la course.
@@ -128,5 +131,24 @@ public class Central_Service{
             }
         }
         return stand;
+    }
+
+    public static void donneeTour(Voiture voiture){
+        for(Iterator<Donnee> it = voiture.donneesTour.iterator(); it.hasNext();){
+            System.out.print(it.next());
+        }
+    }
+
+    public static void donneeTourIntervalle(Voiture voiture, int debut, int fin){
+        if ( fin == -1 ){
+            fin = voiture.nbTour;
+        }
+        if (debut < 0 || voiture.nbTour < debut || fin < 0 || voiture.nbTour < fin ){
+            throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
+        } else {
+            for(int i = debut; i <= fin; i++){
+                System.out.print(voiture.donneesTour.get(i));
+            }
+        }
     }
 }
