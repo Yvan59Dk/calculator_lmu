@@ -107,6 +107,7 @@ public class Central_Service{
 
             listeDonnees.add(new Donnee(
                         tour,               // Le numéro du tour
+                        lineUp.getLineUp().get(index),
                         fuelTemp,           // L'état du fuel
                         energyTemp,         // L'état de l'énergie
                         chrono,             // Le chrono du tour en question

@@ -1,4 +1,5 @@
 package bibliotheque;
+import Equipage.Pilote;
 import Temps.*;
 import calculator.*;
 
@@ -6,7 +7,9 @@ import calculator.*;
  * permettant la lecture rapide et efficace pour faire stratégie ou save.
  */
 public class Donnee {
-    
+    /** Le pilote qui a conduit le tour */
+    private Pilote pilote;
+
     /** Le numéro de tour */
     private int numTour;
 
@@ -31,8 +34,9 @@ public class Donnee {
     private double fuelStand;
     private double energyStand;
 
-    public Donnee(int numTour, Fuel fuel, Energy energy, Temps chrono, Temps timer, boolean stand, double fuelStand, double energyStand){
+    public Donnee(int numTour, Pilote pilote, Fuel fuel, Energy energy, Temps chrono, Temps timer, boolean stand, double fuelStand, double energyStand){
         this.numTour = numTour;
+        this.pilote = pilote;
         this.fuel_actuel = fuel.getFuel_actuel();
         this.fuel_conso = fuel.getFuel_conso();
         this.energy_actuel = energy.getEnergy_actuel();
@@ -49,6 +53,10 @@ public class Donnee {
 
     public int getTour(){
         return this.numTour;
+    }
+
+    public Pilote getPilote(){
+        return this.pilote;
     }
 
     public double getFuel_actuel(){
@@ -111,6 +119,7 @@ public class Donnee {
 
     public String toString(){
         String res = " | Tour " + this.numTour +
+            " | Pilote : " + this.pilote.getNom() +
             " | Temps restant : " + this.timer +
             " | Conso : " + this.fuel_conso + "L " + this.energy_conso + "% " +
             " | Actuel : " + Bibliotheque_Service.toStringDouble(this.fuel_actuel) + "L " + Bibliotheque_Service.toStringDouble(this.energy_actuel)+ "% "+
