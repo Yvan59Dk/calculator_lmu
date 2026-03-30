@@ -30,6 +30,10 @@ public class Pilote {
         this.tempsReference = new Temps(tempsChrono);
     }
 
+    public String getNom(){
+        return prenom.charAt(0) + " " + nom;
+    }
+
     public Temps getTempsChrono(){
         return tempsChrono;
     }
