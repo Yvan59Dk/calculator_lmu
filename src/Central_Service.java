@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -13,9 +12,10 @@ import calculator.*;
 /**
  * Classe qui englobe de manière général les méthodes à utilisé dans le code.
  */
-public class Central_Service{
+public class Central_Service {
 
-    public final static double VARIATIONPOURCENT = 100.1;
+    /** Delta de variation des tours durant un stint */
+    public final static double DELTAVAR = 1.001;
 
     /**
      * Fonction Calculatoire qui calcule le nombre de tour réel à faire durant la course .
@@ -87,7 +87,7 @@ public class Central_Service{
             tour = nbTourActuel + i;
             fuelTemp.evolutionFuel();
             energyTemp.evolutionEnergy();
-            chrono = LineUp_Service.variationTempsRef(chrono, VARIATIONPOURCENT);
+            chrono = LineUp_Service.variationTempsRef(chrono, DELTAVAR);
 
             if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= 0 
                 || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= 0){
@@ -131,37 +131,11 @@ public class Central_Service{
         return res;
     }
 
-    /**
-     * Fonction de Recherche qui donne les tours oû il faut rentrer au stand.
-     * @param donnee : Liste d'élément de classe 'Donnee' contennant les données des tours.
-     * @return les donnees des tours correspondant au arrêt au stand.
-     */
-    public static ArrayList<Donnee> Donnee_tourStand(ArrayList<Donnee> donnee){
-        ArrayList<Donnee> stand = new ArrayList<Donnee>();
-        for(int i = 0; i < donnee.size(); i++){
-            if (donnee.get(i).getStand()){
-                stand.add(donnee.get(i));
-            }
+    public static StringBuilder toString_DonneeTour(List<Donnee> donnee){
+        StringBuilder res = new StringBuilder();
+        for(Iterator<Donnee> it = donnee.iterator(); it.hasNext();){
+           res.append(it.next());
         }
-        return stand;
-    }
-
-    public static void donneeTour(Voiture voiture){
-        for(Iterator<Donnee> it = voiture.donneesTour.iterator(); it.hasNext();){
-            System.out.print(it.next());
-        }
-    }
-
-    public static void donneeTourIntervalle(Voiture voiture, int debut, int fin){
-        if ( fin == -1 ){
-            fin = voiture.nbTour;
-        }
-        if (debut < 0 || voiture.nbTour < debut || fin < 0 || voiture.nbTour < fin ){
-            throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
-        } else {
-            for(int i = debut; i <= fin; i++){
-                System.out.print(voiture.donneesTour.get(i));
-            }
-        }
+        return res;
     }
 }
