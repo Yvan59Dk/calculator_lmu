@@ -22,7 +22,7 @@ public class main {
             Voiture voiture = new Voiture(spec, lineUp, circuit, fuel, energy, chrono, temps);
             System.out.print(voiture);
 
-            Central_Service.donneeTourIntervalle(voiture, 0, -1);
+            System.out.print(Central_Service.toString_DonneeTour(Bibliotheque_Service.donneeTourIntervalle(voiture.donneesTour, 0, -1)));
         } catch (TempsException e) {
             e.printStackTrace();
         }
