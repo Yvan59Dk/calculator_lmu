@@ -1,11 +1,13 @@
 package bibliotheque;
 import Temps.*;
 
+
 /**
  * La classe Enum 'Circuit' contient les données utiles des circuits correspondant
  * @note Les chronos ont été relevée par ma part en Ford Mustang LMGT3 au Clavier, ils sont proximatif.
  */
 public enum Circuit {
+
     // Spa-Francorchamp
     /** Le circuit SPA classique contenant les données de stand */
     SPA("Spa",new Temps(0,36,410)),
@@ -32,11 +34,11 @@ public enum Circuit {
 
     // Le Mans
     /** Le circuit du Mans contenant les données de stand */
-    LEMANS("La Mans",new Temps(0,34,54)),
+    LEMANS("Le Mans",new Temps(0,34,54)),
 
     // COTA (Circuit Of The America)
     /** Le Circuit des Ameriques contenant les données de stand */
-    // COTA("Circuit Of The America",new Chrono(0,32,760)),
+    COTA("Circuit Of The America", new Temps(0,35,000)), // Pas fait
     
     // Silverstone
     /** Le circuit de Silverstone contenant les données de stand */
@@ -44,19 +46,23 @@ public enum Circuit {
 
     // Portimao
     /** Le circuit de Portimao contenant les données de stand */
-    // PORTIMAO("PORTIMAO", new Chrono(0,0,0)),
+    PORTIMAO("PORTIMAO", new Temps(0,35,000)), // Pas fait
 
     // Paul Ricard
     /** Le circuit du Paul Ricard contenant les données de stand */
-    // PAULRICARD("Paul Ricard", new Chrono(0,0,0)),
+    PAULRICARD("Paul Ricard", new Temps(0,35,000)), // Pas fait
 
     // Fuji
     /** Le circuit de Fuji contenant les données de stand */
-    // FUJI("Fugi", new Chrono(0,0,0)),
+    FUJI("Fugi", new Temps(0,35,000)),
 
     // Sebring
     /** Le circuit de Sebring contenant les données de stand */
-    SEBRING("Sebring", new Temps(0,35,540));
+    SEBRING("Sebring", new Temps(0,35,540)),
+
+    // Barcelone 
+    /** Le circuit de Barcelone contenant les données de stand */
+    BARCELONE("Barcelone", new Temps(0,35,000)); // Pas fait
 
     /** Le nom du circuit */
     private String desc;
