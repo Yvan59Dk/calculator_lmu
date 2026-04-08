@@ -50,21 +50,23 @@ public class Central_Service {
     // -- Fonction en rapport avec les données --
 
     /**
-     * Fonction Calculatoire qui prédit d'après les statistiques données, les tours durant la course.
-     * @param fuel : Variable de classe 'Fuel' qui contient les informations nécessaires du carburant.
-     * @param energy : Variable de classe 'Energy' qui contient les informations nécessaires de l'énergie.
-     * @param chrono : Variable de classe 'Temps' qui contient le chrono de référence.
-     * @param timer : Variable de classe 'Temps' qui contient le timer restant de la course.
-     * @param nbTourActuel : int qui est le nombre de tour fait.
-     * @param nbTour : int qui est le nombre de tour total.
-     * @return une liste d'élément de classe Données.
+     * Fonction Calculatoire et de Prédiction qui prédit d'après les statistiques données, les tours durant la course.
+     * @param spec : Catégorie de la voiture
+     * @param lineUp : La lineUp associé à cette voiture
+     * @param indexP : L'index qui pointe vers le meilleur pilote de la lineUp
+     * @param circuit : Le circuit 
+     * @param fuel : variable de classe 'Fuel' possédant les données relatives au carburant de la voiture
+     * @param energy : variable de classe 'Energu' possédant les données relatives à l'énergie de la voiture
+     * @param timer : le temps restant de la course
+     * @param nbTourActuel : le nombre de tour déjà effectué
+     * @return une liste d'élément de classe 'Données' contenant les données de tout les tours restants.
      */
-    public static List<Donnee> calcul_tour(Categorie spec, LineUp lineUp, Circuit circuit, Fuel fuel, Energy energy,  Temps timer,  int nbTourActuel){
+    public static List<Donnee> calcul_tour(Categorie spec, LineUp lineUp, int indexP, Circuit circuit, Fuel fuel, Energy energy,  Temps timer,  int nbTourActuel){
         // L'arraylist qui va contenir les tours.
         ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
 
         // Indice de la liste de la LineUp
-        int index = lineUp.pilotBestTempsChrono();
+        int index = indexP;
 
         // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
         Fuel fuelTemp = fuel.clone();
@@ -97,6 +99,8 @@ public class Central_Service {
 
                 index = (index + 1) % lineUp.getLineUp().size();
                 chrono = lineUp.getLineUp().get(index).getTempsReference().clone();
+                fuelTemp.MAJ_fuel_conso(lineUp.getLineUp().get(index).getFuel_conso());
+                energyTemp.MAJ_energy_conso(lineUp.getLineUp().get(index).getEnergy_conso());
 
                 // Temps dans la voie des stands
                 tempsStand = new Temps(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));

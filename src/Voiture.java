@@ -28,6 +28,7 @@ public class Voiture {
 
     // Variable pour la LineUp
     public LineUp lineUp;
+    public int index;
 
     public int nbTour;
     public List<Donnee> donneesTour;
@@ -43,24 +44,26 @@ public class Voiture {
         this.energy = new Energy(spec.getEnergy_max(), DEFAULT_ENERGY_CONSO);
         this.lineUp = lineUp;
 
-        this.chrono = chrono;
+        this.index = lineUp.pilotBestTempsChrono();
+        this.chrono = lineUp.getLineUp().get(index).getTempsChrono();
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, circuit, fuel, energy, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, index, circuit, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 
-    public Voiture(Categorie spec, LineUp lineUp, Circuit circuit, Fuel fuel, Energy energy, Temps chrono, Temps timer){
+    public Voiture(Categorie spec, LineUp lineUp, Circuit circuit, Fuel fuel, Energy energy, Temps timer){
         this.spec = spec;
         this.circuit = circuit;
         this.fuel = fuel;
         this.energy = energy;
         this.lineUp = lineUp;
 
-        this.chrono = chrono;
+        this.index = lineUp.pilotBestTempsChrono();
+        this.chrono = lineUp.getLineUp().get(index).getTempsChrono();
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, circuit, fuel, energy, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, index, circuit, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 
