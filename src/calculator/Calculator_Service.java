@@ -2,6 +2,8 @@ package calculator;
 
 import Temps.*;
 import bibliotheque.*;
+import calculator.Ressource.Energy;
+import calculator.Ressource.Fuel;
 
 /** Classe de Service qui propose des méthodes permettant de faire des calculs plus spécifiques, plus complexe. */
 public class Calculator_Service {
@@ -120,5 +122,19 @@ public class Calculator_Service {
         } else {
             return 100;
         }
+    }
+
+    /**
+     * Fonction Calculatoire qui calcule le carburant et l'énergie à mettre au prochain stand de la course.
+     * @param litreGlobalRequis : Le litre total utilisé durant la course.
+     * @param energy : La variable de classe 'Energy' qui contient les données de voitures en rapport avec l'énergie.
+     * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant.
+     * @return un tuple de double de taille 2 au format [Carburant à mettre,Energie à mettre] 
+     */
+    public static double[] calcul_refuel_stand(Temps chrono, Temps timer, Energy energy, Fuel fuel){
+        double[] res = new double[2];
+        res[0] = Calculator_Service.fuel_stand(chrono, timer, fuel);
+        res[1] = Calculator_Service.energy_stand(chrono, timer, energy);
+        return res;
     }
 }

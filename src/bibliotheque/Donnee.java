@@ -1,7 +1,7 @@
 package bibliotheque;
 import Equipage.Pilote;
 import Temps.*;
-import calculator.*;
+import calculator.Ressource.*;
 
 /** La classe Donnee stocke les données émisent sur un tour et les affiche sous un format rapide 
  * permettant la lecture rapide et efficace pour faire stratégie ou save.

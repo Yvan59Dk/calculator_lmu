@@ -1,4 +1,6 @@
-package calculator;
+package calculator.Ressource;
+
+import calculator.Calculator_Service;
 
 /** La classe 'Fuel' est la classe qui correspond au systéme de carburant du véhicule. Elle contient le carburant actuel,
  * la consommation de carburant, le carburant maximal et le rendement de carburant par rapport à l'énergie.

@@ -1,5 +1,7 @@
 package calculator.Pneu;
-
+/**
+ * @deprecated
+ */
 public class Pneu {
     private String emplacement;
     private double etat;

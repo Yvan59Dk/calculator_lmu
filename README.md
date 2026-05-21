@@ -61,6 +61,7 @@ Le code source est organisé de manière modulaire pour faciliter la maintenance
 *   **`Temps/`** : Gestion du temps, des chronomètres et des timers.
 *   **`bibliotheque/`** : Structures de données et définitions des catégories de véhicules.
 *   **`calculator/`** : Logique métier pour les calculs de consommation et d'énergie.
+*   **`Equipage/`** : Gestion des équipages de la voiture.
 *   **`Central_Service.java`** : Service central orchestrant les calculs et les interactions entre les modules.
 *   **`Observation/`** : Dossier contenant des comparaisons entre les calculs théoriques et les données réelles de course (format Markdown).
 

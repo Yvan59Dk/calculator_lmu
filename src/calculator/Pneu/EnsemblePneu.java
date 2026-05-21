@@ -3,6 +3,9 @@ package calculator.Pneu;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
 public class EnsemblePneu {
     private List<Pneu> listPneu;
 

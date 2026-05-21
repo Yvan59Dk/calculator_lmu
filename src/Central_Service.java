@@ -1,18 +1,17 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import Equipage.LineUp;
-import Equipage.LineUp_Service;
 import Temps.*;
 import bibliotheque.*;
 import calculator.*;
+import calculator.Ressource.Energy;
+import calculator.Ressource.Fuel;
 
 /**
  * Classe qui englobe de manière général les méthodes à utilisé dans le code.
  */
-public class Central_Service {
+public class Central_Service{
 
     /** Delta de variation des tours durant un stint */
     public final static double DELTAVAR = 1.001;
@@ -33,107 +32,21 @@ public class Central_Service {
         return tour;
     }
 
-    /**
-     * Fonction Calculatoire qui calcule le carburant et l'énergie à mettre au prochain stand de la course.
-     * @param litreGlobalRequis : Le litre total utilisé durant la course.
-     * @param energy : La variable de classe 'Energy' qui contient les données de voitures en rapport avec l'énergie.
-     * @param fuel : La variable de classe 'Fuel' qui contient les données de voitures en rapport avec le carburant.
-     * @return un tuple de double de taille 2 au format [Carburant à mettre,Energie à mettre] 
-     */
-    public static double[] calcul_refuel_stand(Temps chrono, Temps timer, Energy energy, Fuel fuel){
-        double[] res = new double[2];
-        res[0] = Calculator_Service.fuel_stand(chrono, timer, fuel);
-        res[1] = Calculator_Service.energy_stand(chrono, timer, energy);
-        return res;
-    }
-
     // -- Fonction en rapport avec les données --
-
-    /**
-     * Fonction Calculatoire et de Prédiction qui prédit d'après les statistiques données, les tours durant la course.
-     * @param spec : Catégorie de la voiture
-     * @param lineUp : La lineUp associé à cette voiture
-     * @param indexP : L'index qui pointe vers le meilleur pilote de la lineUp
-     * @param circuit : Le circuit 
-     * @param fuel : variable de classe 'Fuel' possédant les données relatives au carburant de la voiture
-     * @param energy : variable de classe 'Energu' possédant les données relatives à l'énergie de la voiture
-     * @param timer : le temps restant de la course
-     * @param nbTourActuel : le nombre de tour déjà effectué
-     * @return une liste d'élément de classe 'Données' contenant les données de tout les tours restants.
-     */
-    public static List<Donnee> calcul_tour(Categorie spec, LineUp lineUp, int indexP, Circuit circuit, Fuel fuel, Energy energy,  Temps timer,  int nbTourActuel){
-        // L'arraylist qui va contenir les tours.
-        ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
-
-        // Indice de la liste de la LineUp
-        int index = indexP;
-
-        // Toute les variables de classe en copie pour pouvoir manipuler les données sans modifié celle de base
-        Fuel fuelTemp = fuel.clone();
-        Energy energyTemp = energy.clone();
-        Temps timerTemp = timer.clone();
-        Temps chrono = lineUp.getLineUp().get(index).getTempsReference().clone();
-        
-        // Variable local.
-        Temps tempsStand = new Temps();
-        double[] refuelStand = {0,0};
-        
-        boolean stand = false;
-        boolean timeStand = false;
-
-        // Tour.
-        int i = 0;
-        int tour = nbTourActuel;
-
-        while(timerTemp.checkNul()){
-            tour = nbTourActuel + i;
-            fuelTemp.evolutionFuel();
-            energyTemp.evolutionEnergy();
-            chrono = LineUp_Service.variationTempsRef(chrono, DELTAVAR);
-
-            if (fuelTemp.getFuel_actuel()-fuelTemp.getFuel_conso() <= 0 
-                || energyTemp.getEnergy_actuel()-energyTemp.getEnergy_conso() <= 0){
-                refuelStand = calcul_refuel_stand(chrono, timerTemp, energyTemp, fuelTemp);
-                energyTemp.MAJ_energy_actuel(refuelStand[1]);
-                fuelTemp.MAJ_fuel_actuel(refuelStand[0]);
-
-                index = (index + 1) % lineUp.getLineUp().size();
-                chrono = lineUp.getLineUp().get(index).getTempsReference().clone();
-                fuelTemp.MAJ_fuel_conso(lineUp.getLineUp().get(index).getFuel_conso());
-                energyTemp.MAJ_energy_conso(lineUp.getLineUp().get(index).getEnergy_conso());
-
-                // Temps dans la voie des stands
-                tempsStand = new Temps(Calculator_Service.temps_ravitaillement(spec, circuit, refuelStand[0], refuelStand[1]));
-                chrono.addTemps(tempsStand);
-                timeStand = true;
-                stand = true;
-            }
-
-            listeDonnees.add(new Donnee(
-                        tour,               // Le numéro du tour
-                        lineUp.getLineUp().get(index),
-                        fuelTemp,           // L'état du fuel
-                        energyTemp,         // L'état de l'énergie
-                        chrono,             // Le chrono du tour en question
-                        timerTemp,          // Le timer restant de la course
-                        stand,              // Si il faut rentrez au stand
-                        refuelStand[0],     // Fuel à remettre au stand
-                        refuelStand[1]));   // Energie à mettre au stand
-
-            if (stand){
-                stand = false;
-            }
-            if (timeStand){
-                chrono.soustractTemps(tempsStand);
-                timeStand = false;
-            }
-
-            timerTemp.soustractTemps(chrono);
-            i++;
+    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, LineUp lineUp, int indexP, Fuel fuel, Energy energy, Temps timer, int nbTourActuel){
+        Calcul_Tour prediThread = new Calcul_Tour(spec, circuit, lineUp, indexP, fuel, energy, timer, nbTourActuel);
+        Thread thread = new Thread(prediThread);
+        thread.run();
+        try {
+            thread.join();
+            return prediThread.getResultat();
+        } catch (InterruptedException e) {
+            System.out.println("Problème d'exécution de la prédiction des tours");
+            e.printStackTrace();
+            return null;
         }
-        List<Donnee> res = Collections.unmodifiableList(listeDonnees);
-        return res;
     }
+
 
     public static StringBuilder toString_DonneeTour(List<Donnee> donnee){
         StringBuilder res = new StringBuilder();

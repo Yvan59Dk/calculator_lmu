@@ -1,4 +1,4 @@
-package calculator;
+package calculator.Ressource;
 
 /** La classe 'Energy' est une classe qui correspond a la batterie du véhicule. Elle contient l'énergie actuel,
  * la consommation d'énergie ainsi que d'autres méthodes influançant l'énergie de la voiture permettant l'évolution

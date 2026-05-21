@@ -2,7 +2,7 @@ import java.util.List;
 
 import Temps.*;
 import bibliotheque.*;
-import calculator.*;
+import calculator.Ressource.*;
 import Equipage.*;
 
 public class Voiture {
@@ -48,7 +48,7 @@ public class Voiture {
         this.chrono = lineUp.getLineUp().get(index).getTempsChrono();
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, index, circuit, fuel, energy, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, circuit, lineUp, index, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 
@@ -63,7 +63,7 @@ public class Voiture {
         this.chrono = lineUp.getLineUp().get(index).getTempsChrono();
         this.tempsRestant = timer;
 
-        this.donneesTour = Central_Service.calcul_tour(spec, lineUp, index, circuit, fuel, energy, timer, 0);
+        this.donneesTour = Central_Service.calcul_tour(spec, circuit, lineUp, index, fuel, energy, timer, 0);
         this.nbTour = donneesTour.size()-1;
     }
 
