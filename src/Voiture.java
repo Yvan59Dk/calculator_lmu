@@ -1,7 +1,6 @@
-import java.util.List;
-
 import Temps.*;
 import bibliotheque.*;
+import bibliotheque.DonneeTour.ListDonnee;
 import calculator.Ressource.*;
 import Equipage.*;
 
@@ -31,7 +30,7 @@ public class Voiture {
     public int index;
 
     public int nbTour;
-    public List<Donnee> donneesTour;
+    public ListDonnee donneesTour;
     public double[] save;
 
     public Temps chrono;

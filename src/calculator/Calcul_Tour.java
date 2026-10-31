@@ -1,12 +1,10 @@
 package calculator;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import Equipage.*;
 import Temps.*;
 import bibliotheque.*;
+import bibliotheque.DonneeTour.Donnee;
+import bibliotheque.DonneeTour.ListDonnee;
 import calculator.Ressource.Energy;
 import calculator.Ressource.Fuel;
 
@@ -16,7 +14,7 @@ import calculator.Ressource.Fuel;
  */
 public class Calcul_Tour implements Runnable {
     public final static double DELTAVAR = 1.001;
-    private List<Donnee> res;
+    private ListDonnee res;
     private Categorie spec;
     private Circuit circuit;
     private LineUp lineUp;
@@ -64,13 +62,13 @@ public class Calcul_Tour implements Runnable {
         this.choice = true;
     }
 
-    public List<Donnee> getResultat(){
+    public ListDonnee getResultat(){
         return res;
     }
 
     @Override
     public void run(){
-        ArrayList<Donnee> listeDonnees = new ArrayList<Donnee>();
+        ListDonnee listeDonnees = new ListDonnee();
         // Variable local.
         Temps tempsStand = new Temps();
         double[] refuelStand = {0,0};
@@ -106,7 +104,7 @@ public class Calcul_Tour implements Runnable {
                 stand = true;
             }
 
-            listeDonnees.add(new Donnee(
+            listeDonnees.ajouter(new Donnee(
                         tour,               // Le numéro du tour
                         lineUp.getLineUp().get(indexP),
                         fuel,           // L'état du fuel
@@ -128,6 +126,6 @@ public class Calcul_Tour implements Runnable {
             timer.soustractTemps(chrono);
             i++;
         }
-        res = Collections.unmodifiableList(listeDonnees);
+        res = new ListDonnee(listeDonnees);
     }
 }

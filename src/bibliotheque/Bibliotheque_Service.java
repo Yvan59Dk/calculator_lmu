@@ -1,7 +1,7 @@
 package bibliotheque;
 
-import java.util.ArrayList;
-import java.util.List;
+import bibliotheque.DonneeTour.Donnee;
+import bibliotheque.DonneeTour.ListDonnee;
 
 /** Classe regroupant les fonctions utilisé pour la recherche ainsi que pour convertir des valeurs dans certains formats */
 public class Bibliotheque_Service {
@@ -28,11 +28,11 @@ public class Bibliotheque_Service {
      * @param donnee : Liste d'élément de classe 'Donnee' contenant les données des tours.
      * @return les donnees des tours correspondant au arrêt au stand.
      */
-    public static List<Donnee> donneetourStand(List<Donnee> donnee){
-        List<Donnee> stand = new ArrayList<Donnee>();
-        for(int i = 0; i < donnee.size(); i++){
-            if (donnee.get(i).getStand()){
-                stand.add(donnee.get(i));
+    public static ListDonnee donneetourStand(ListDonnee donnee){
+        ListDonnee stand = new ListDonnee();
+        for( Donnee d : donnee){
+            if (d.getStand()){
+                stand.ajouter(d);
             }
         }
         return stand;
@@ -45,17 +45,18 @@ public class Bibliotheque_Service {
      * @param fin : int : Fin de l'intervalle ( si -1, intervalle infinie )
      * @return les donnees des tours correspondant à l'intervalle
      */
-    public static List<Donnee> donneeTourIntervalle(List<Donnee> donnee, int debut, int fin){
-        List<Donnee> tour = new ArrayList<Donnee>();
+    public static ListDonnee donneeTourIntervalle(ListDonnee donnee, int debut, int fin){
+        ListDonnee tour = new ListDonnee();
         if ( fin == -1 ){
             fin = donnee.size();
         }
         if (debut < 0 || donnee.size() < debut || fin < 0 || donnee.size() < fin ){
             throw new IllegalArgumentException("Problème d'intervalle dans les tours demandées. Argument reçu : debut = " + debut + ", fin = " + fin);
         } else {
-            for(int i = debut; i < fin; i++){
-                tour.add(donnee.get(i));
-            }
+            tour = new ListDonnee(donnee.stream()
+                        .skip(debut) // on saute les naturels de 0 a 4
+                        .limit(fin-debut) // on ne garde que les 6 suivants
+                        .toList());
         }
         return tour;
     }

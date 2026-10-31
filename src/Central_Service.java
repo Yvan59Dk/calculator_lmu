@@ -1,9 +1,8 @@
-import java.util.Iterator;
-import java.util.List;
-
 import Equipage.LineUp;
 import Temps.*;
 import bibliotheque.*;
+import bibliotheque.DonneeTour.Donnee;
+import bibliotheque.DonneeTour.ListDonnee;
 import calculator.*;
 import calculator.Ressource.Energy;
 import calculator.Ressource.Fuel;
@@ -33,7 +32,7 @@ public class Central_Service{
     }
 
     // -- Fonction en rapport avec les données --
-    public static List<Donnee> calcul_tour(Categorie spec, Circuit circuit, LineUp lineUp, int indexP, Fuel fuel, Energy energy, Temps timer, int nbTourActuel){
+    public static ListDonnee calcul_tour(Categorie spec, Circuit circuit, LineUp lineUp, int indexP, Fuel fuel, Energy energy, Temps timer, int nbTourActuel){
         Calcul_Tour prediThread = new Calcul_Tour(spec, circuit, lineUp, indexP, fuel, energy, timer, nbTourActuel);
         Thread thread = new Thread(prediThread);
         thread.run();
@@ -48,10 +47,10 @@ public class Central_Service{
     }
 
 
-    public static StringBuilder toString_DonneeTour(List<Donnee> donnee){
+    public static StringBuilder toString_DonneeTour(ListDonnee listDonnee){
         StringBuilder res = new StringBuilder();
-        for(Iterator<Donnee> it = donnee.iterator(); it.hasNext();){
-           res.append(it.next());
+        for(Donnee d : listDonnee){
+            res.append(d);
         }
         return res;
     }
